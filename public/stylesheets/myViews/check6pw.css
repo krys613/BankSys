@@ -1,0 +1,11 @@
+.block{
+    background: #00B7FF;
+    height: 30px;
+    width: 30px;
+    float: left;
+    margin-right: 20px;
+}
+
+#hiddenInput{
+    width: 30%;
+}

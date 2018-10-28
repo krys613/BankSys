@@ -1,6 +1,14 @@
-//getAccounts();
-
 //get method to get all Accounts
+
+function getBalance() {
+    if(checkToken()){
+        //todo show data or do commit
+        alert("get data");
+    }else {
+        $('#check6pwModal').modal("show");
+    }
+}
+
 function getAccounts() {
     $.ajax({
         url: "customer/basicInfo/getAccounts",

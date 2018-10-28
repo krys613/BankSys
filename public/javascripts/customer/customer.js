@@ -13,6 +13,27 @@ function show(url) {
         dataType: 'html',
         success: function (data) {
             $('#content').html(data);
+        },
+        error : function (data) {
+            alert('身份已经过期');
+            //todo redirect
+        }
+    });
+}
+
+function checkToken() {
+    $.ajax({
+        url: '/customer/checkToken',
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            //todo shown data
+            return true;
+        },
+        error : function (data) {
+            alert('身份已经过期');
+            //todo redirect
+            return false;
         }
     });
 }
