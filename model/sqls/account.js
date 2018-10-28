@@ -1,9 +1,9 @@
-class AccountSql {
+export class AccountSql {
     constructor(){
 
     }
 	static creatAccount(CustID,CreatingDate,Password,Amount,Status){
-		return "INSERT INTO account(CustID,CreatingDate,Password,Amount,Status) "+ 
+		return "INSERT INTO account(CustID,CreatingDate,Password,Amount,Status) "+
 		"VALUES ('"+CustID+"', '"+CreatingDate+"', '"+Password+"', "+Amount+", "+
 		Status+")";
 	}
@@ -18,8 +18,8 @@ class AccountSql {
 	static singleAccountInfo(AccountNo,CustID){
 		return "select * from account where AccountNo="+AccountNo+" and CustID='"+CustID+"'";
 	}
-	static allAccountInfo(CustID){
-		return "select * from account where CustID='"+CustID+"'";
+	static getAllAccountInfo(UserID){
+		return "select * from account where CustID= (SELECT custID FROM customer WHERE UserID = "+UserID+")";
 	}
 	/*以下查询存取款记录*/
 	static depositRecord(AccountNo){

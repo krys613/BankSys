@@ -4,7 +4,7 @@ class insertInfoSql{
 
     }
 	static insertUser(name,pwd,type){
-		return "INSERT INTO user(name,password,type) VALUES ('"+
+		return "INSERT INTO user(name,privacy,type) VALUES ('"+
 		name+"' ,'"+pwd+"', '"+type+"')";
 	}
 	static insertEmployee(employeeID,userID,name,gender,job){

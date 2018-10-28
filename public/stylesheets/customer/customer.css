@@ -5,7 +5,9 @@
 
 .leftNav{
     /* background: cornflowerblue; */
-    margin: 30px;
+    /* margin: 30px; */
+    margin-top: 5px;
+    margin-left: 30px;
 }
 
 .topNav{
@@ -14,4 +16,5 @@
 
 #content{
     height: 300px;
+    margin-top: 5px;
 }

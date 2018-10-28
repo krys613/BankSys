@@ -1,0 +1,23 @@
+.accountCard{
+    float: left;
+    margin-right: 40px;
+    width: 500px;
+    height: 280px;
+}
+
+.cardBalanceArea{
+    width: auto;
+    height: 80px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: 1px solid;
+    border-radius: 10px;
+}
+.cardBalance{
+    margin: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.cardBtnGroup{
+}

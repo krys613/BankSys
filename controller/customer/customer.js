@@ -1,4 +1,7 @@
 import express from 'express';
+import async from "async";
+import {CustomerQuery} from "../../server/data/customer";
+import {ObjToJson} from "../../server/tools/objToJson";
 var router = express.Router();
 
 //page
@@ -25,7 +28,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/basicInfo',function (req,res,next) {
-    res.sendFile(appRoot+'/views/customer/basicInfo.html');
+
+    //res.sendFile(appRoot+'/views/customer/basicInfo.html');
+    async.waterfall([
+        function (callback) {
+            CustomerQuery.getAllAccountInfo(req.session.user.userID,function (err,accounts) {
+                callback(null,accounts);
+            })
+        }
+    ],function (err,accounts) {
+        var json = new ObjToJson(accounts).toJson();
+        res.render('customer/basicInfo',{
+            accounts:json.data});
+    });
 });
 
 router.get('/home',function (req,res,next) {

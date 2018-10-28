@@ -10,7 +10,7 @@ function getHash(key,pw) {
     return sha1.digest("hex");
 }
 
-export class encrypt {
+export class Encrypt {
     constructor(){
 
     }

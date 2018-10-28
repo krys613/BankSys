@@ -17,11 +17,11 @@ class TransactionSql {
 		return "INSERT INTO transaction_withdraw(AccountNo,Date,Amount,Description) "+
 		"VALUES ("+AccountNo+", '"+date+"', "+Amount+", '"+Description+"')";
 	}
-	
+
 }
 /*
 test
 console.log(TransactionSql.deposit(2,"2018/10/26",100,"test"));
 console.log(TransactionSql.transfer(3,2,"2018/10/26",100,"test"));
 console.log(TransactionSql.withdraw(2,"2018/10/26",100,"test"));
-*
+*/

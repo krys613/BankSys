@@ -1,6 +1,6 @@
 import express from 'express';
 var router = express.Router();
-import {checkPW} from "../../server/password/checkPW";
+import {CheckPW} from "../../server/privacy/checkPW";
 import async from 'async';
 
 router.get('/', function(req, res, next) {
@@ -21,7 +21,7 @@ router.post('/confirmLogin',function (req,res,next) {
 
     async.waterfall([
         function(callback){
-            checkPW.checkLogin(user.userID,user.type,user.password,function (match,user) {
+            CheckPW.checkLogin(user.userID,user.type,user.password,function (match,user) {
                 callback(null,match,user);
             });
         }

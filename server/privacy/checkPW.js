@@ -1,9 +1,9 @@
-import {encrypt} from "./encrypt";
+import {Encrypt} from "./encrypt";
 import pool from '../../model/pool';
 import {LoginSql} from "../../model/sqls/login";
 
-//check all password
-export class checkPW {
+//check all privacy
+export class CheckPW {
     constructor(){
 
     }
@@ -27,7 +27,7 @@ export class checkPW {
 
                         match = false;
                     }
-                    //check password
+                    //check privacy
                     if(pw !== result[0].password){
                         //todo : replace with encrypt while register page finished
                         match = false;
