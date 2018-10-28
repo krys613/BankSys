@@ -19,5 +19,7 @@ router.use('/customer',require('../controller/customer/customer'));
 
 
 //employee
+router.use('/employee',require('../controller/employee/employee'));
+
 
 module.exports = router;

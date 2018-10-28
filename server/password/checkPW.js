@@ -11,6 +11,7 @@ export class checkPW {
     static checkLogin(userID,type,pw,callback){
         pool.getConnection(function (err,con) {
             var match = true;
+            var user = null;
             con.query(LoginSql.getUser(userID),function (err,result) {
                 if(err){
                     match = false;
@@ -31,10 +32,17 @@ export class checkPW {
                         //todo : replace with encrypt while register page finished
                         match = false;
                     }
+                    if(match){
+                        user = {
+                            userID:result[0].userID,
+                            name:result[0].name,
+                            type:result[0].type
+                        }
+                    }
                 }
                 pool.releaseConnection(con);
-                console.log("match   "+match);
-                callback(match);
+                console.log("match "+match);
+                callback(match,user);
             });
         });
     }

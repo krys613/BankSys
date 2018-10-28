@@ -21,13 +21,15 @@ router.post('/confirmLogin',function (req,res,next) {
 
     async.waterfall([
         function(callback){
-            var match = checkPW.checkLogin(user.userID,user.type,user.password,function (match) {
-                callback(null,match);
+            checkPW.checkLogin(user.userID,user.type,user.password,function (match,user) {
+                callback(null,match,user);
             });
         }
-    ],function (err,match) {
+    ],function (err,match,user) {
         json.status = match;
-        console.log(json);
+        if(match) {
+            req.session.user = user;
+        }
         res.json(json);
     });
 });

@@ -124,7 +124,7 @@ function loginSuccess(returnMsg){
         $.cookie('loginingEmployee',JSON.stringify(returnMsg));
         var loginCookie=JSON.parse($.cookie("loginingEmployee"));
 		console.log("cookie:"+JSON.stringify(loginCookie));
-		window.location.href = "index.html";//登陆成功进入员工主页面
+		window.location.href = "/employee";//登陆成功进入员工主页面
 		return ;
 	}
 }

@@ -1,7 +1,6 @@
 //bootstrap nav
-$('#leftNavs a').click(function (e) {
-    e.preventDefault()
-    $(this).tab('show')
+$('#leftNav a').on('click', function (e) {
+    $(this).tab('show');
 });
 
 
