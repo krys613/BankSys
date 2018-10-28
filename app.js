@@ -9,13 +9,15 @@ var app = express();
 //////////////////////////////////////////////////////////////////////////
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views/'));
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
 
-app.use(express.static(path.join(__dirname, 'public')));
+//use static path
+app.use("/public",express.static(path.join(__dirname, 'public')));
 app.use("/views",express.static(path.join(__dirname, 'views')));
 app.use("/node_modules",express.static(path.join(__dirname, 'node_modules')));
+
 
 // use babel
 require('babel-register');

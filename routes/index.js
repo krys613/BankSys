@@ -1,10 +1,23 @@
 import express from 'express';
 var router = express.Router();
 
+//dispatch routers
 
+//index
 router.use('/',require('../controller/index'));
-router.use('/login',require('../controller/login'));
 
-router.use('/customer',require('../controller/customer'));
+//login
+router.use('/login',require('../controller/user/login'));
+
+
+//customer
+router.use('/customer',require('../controller/customer/customer'));
+    //basicInfo
+    router.use('/customer/basicInfo',require('../controller/customer/basicInfo'));
+
+
+
+
+//employee
 
 module.exports = router;

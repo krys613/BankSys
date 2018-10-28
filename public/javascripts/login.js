@@ -43,12 +43,12 @@ function doLogin(){
         $.ajax({
             type : "POST",
 
-            url : "/login/btn2",//todo
+            url : "/login/confirmLogin",
 
             data : {
-                account :  $("#loginCellPhone").val(), //向后台传输用户名、密码、角色是客户/员工
-                password :  $("#loginPassword").val(),
-                role :  $("#loginRole").val(),
+                userID :  $("#loginCellPhone").val(), //向后台传输用户名、密码、角色是客户/员工
+                password :  $("#loginPassword").val() ,
+                type :  $("#loginRole").val()=== '1'?"customer":"employee",
             },
             dataType : "json",
 
@@ -101,23 +101,24 @@ function checkPasswordInput(input) {
     return true;
 
 }
-	
+
 function loginSuccess(returnMsg){
     $("#login").val("登录").removeAttr("disabled");
-	if("客户" == returnMsg.user.type){
+
+	if("customer" === returnMsg.user.type){
 		localStorage.menu = JSON.stringify(returnMsg.menuJSON);
-        
+
 		delete returnMsg.menuJSON ;
 
         $.cookie('loginingGuest',JSON.stringify(returnMsg));
         var loginCookie=JSON.parse($.cookie("loginingGuest"));
 		console.log("cookie:"+JSON.stringify(loginCookie));
-		window.location.href = "index.html";//登陆成功进入客户主页面
+		window.location.href = "/customer";//登陆成功进入客户主页面
 		return ;
-	}	
-	if("员工" == returnMsg.user.type){
+	}
+	if("employee" === returnMsg.user.type){
 		localStorage.menu = JSON.stringify(returnMsg.menuJSON);
-        
+
 		delete returnMsg.menuJSON ;
 
         $.cookie('loginingEmployee',JSON.stringify(returnMsg));
@@ -125,7 +126,7 @@ function loginSuccess(returnMsg){
 		console.log("cookie:"+JSON.stringify(loginCookie));
 		window.location.href = "index.html";//登陆成功进入员工主页面
 		return ;
-	}	
+	}
 }
 
 function loginFailure(returnMsg){

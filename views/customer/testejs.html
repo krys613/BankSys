@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>ceshi</title>
+<body>
+<ol class="breadcrumb topNav">
+    <li><a href="#">暂时</a></li>
+    <li><a href="#">先</a></li>
+    <li class="active">留着</li>
+</ol>
+<button onclick="test()">test</button>
+</body>
+</html>
+<script>
+    function test() {
+        $.ajax({
+            url: "customer/basicInfo/ggg",
+            type: 'get',
+            dataType: 'html',
+            success: function (data) {
+                alert(data);
+            }
+        });
+    }
+</script>

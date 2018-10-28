@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>银行业务系统</title>
-  <!--设置网页在浏览器tab选项卡上的图标-->
-  <link rel="shortcut icon" href="dist/img/logo.png" type="image/x-icon">
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->  
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <!-- <link rel="stylesheet" href="dist/css/AdminLTE.min.css"> -->
-  <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>银行业务系统</title>
+    <!--设置网页在浏览器tab选项卡上的图标-->
+    <link rel="shortcut icon" href="/public/images/logo.png" type="image/x-icon">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/node_modules/ionicons/dist/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/node_modules/icheck/skins/square/blue.css">
 
   <style>
     html,body{
@@ -30,7 +25,7 @@
 <body class="hold-transition login-page" style="background-color:#B4CFE9">
 <div style="position: absolute;top:40%;left:28%;margin-top:-65px;">
   <div>
-    <img src="dist/img/title.png" style="position: relative;">
+    <img src="/public/images/title.png" style="position: relative;">
   </div>
   <div style="margin-left: 135px;margin-top: 35px">
     <form style="position: relative;" id="loginForm">
@@ -47,26 +42,23 @@
 </div>
 <!-- 测试向后台请求数据 -->
 <div>
-    <input id="testdata" class="btn btn-default" type="button" value="testdata">  
+    <input id="testdata" class="btn btn-default" type="button" value="testdata">
     <input id="testbox" type="text" name="testbox" >
 </div>
 
-<!-- jQuery 2.2.3 -->
-<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script type="text/javascript" src="plugins/jQuery/jquery.cookie.js"></script>
-<script src="plugins/jQuery/jquery.jdirk.js" type="text/javascript" charset="utf-8"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="plugins/iCheck/icheck.min.js"></script>
-<script type="text/javascript" src="js/login.js" charset="utf-8"></script>
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/public/plugins/jQuery/jquery.cookie.js"></script>
+<script src="/public/plugins/jQuery/jquery.jdirk.js" type="text/javascript" charset="utf-8"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/node_modules/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="/public/javascripts/login.js" charset="utf-8"></script>
 
 <script>
   $(function () {
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
-      increaseArea: '20%' 
+      increaseArea: '20%'
     });
   });
 </script>
