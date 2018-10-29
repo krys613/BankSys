@@ -3,9 +3,11 @@ homework
 
 ### Requirements
 
-[Node.js](https://nodejs.org/en/)
+Node.js
 
 Mysql
+
+Redis
 
 ### Quick Start
 
@@ -14,6 +16,7 @@ Mysql
 git clone https://github.com/firstnewline/BankSys.git
 ```
 #### Start
+connect to your mysql and redis
 ```
 cd BankSys
 npm install
