@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 29/10/2018 16:15:33
+ Date: 29/10/2018 18:42:41
 */
 
 SET NAMES utf8mb4;
@@ -23,14 +23,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
   `AccountNo` bigint(11) NOT NULL AUTO_INCREMENT,
-  `UserID` bigint(11) NOT NULL,
+  `UserID` varchar(65) NOT NULL,
   `CreatingDate` date NOT NULL,
   `Password` varchar(32) NOT NULL,
   `Amount` double(11,2) NOT NULL,
   `Status` enum('1','0') NOT NULL DEFAULT '1' COMMENT '1：正常 0：冻结',
   PRIMARY KEY (`AccountNo`),
   KEY `CustID` (`UserID`),
-  CONSTRAINT `account_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `acc_fk_UserID` FOREIGN KEY (`UserID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -59,14 +59,14 @@ CREATE TABLE `bankdraft` (
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `custID` varchar(20) NOT NULL COMMENT '身份证号',
-  `userID` bigint(11) NOT NULL,
+  `userID` varchar(65) NOT NULL,
   `name` varchar(8) NOT NULL,
   `gender` enum('F','M') NOT NULL DEFAULT 'F',
   `address` tinytext NOT NULL,
   `phoneNumber` varchar(11) NOT NULL,
   PRIMARY KEY (`custID`),
   KEY `c_u` (`userID`),
-  CONSTRAINT `c_u` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `cus_fk_UserID` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -75,13 +75,13 @@ CREATE TABLE `customer` (
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `employeeID` varchar(20) NOT NULL DEFAULT '身份证号',
-  `userID` bigint(11) NOT NULL,
+  `userID` varchar(65) NOT NULL,
   `name` varchar(8) NOT NULL,
   `gender` enum('F','M') NOT NULL,
   `job` tinytext NOT NULL,
   PRIMARY KEY (`employeeID`),
   KEY `e_t` (`userID`),
-  CONSTRAINT `e_t` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `em_fk_UserID` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -160,11 +160,11 @@ CREATE TABLE `transaction_withdraw` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `userID` bigint(11) NOT NULL AUTO_INCREMENT,
+  `userID` varchar(65) NOT NULL,
   `password` varchar(32) NOT NULL,
   `type` enum('customer','employee') NOT NULL,
   `name` varchar(8) NOT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
