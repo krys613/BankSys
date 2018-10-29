@@ -2,8 +2,8 @@ import express from 'express';
 import async from "async";
 import {CustomerQuery} from "../../server/data/customer";
 import {ObjToJson} from "../../server/tools/objToJson";
+import TokenManager from '../../server/privacy/tokenManager';
 var router = express.Router();
-
 
 router.get('/', function(req, res, next) {
     // if (req.session.user.name != null && req.session.user.type === "customer"){
@@ -37,6 +37,7 @@ router.get('/basicInfo',function (req,res,next) {
         }
     ],function (err,accounts) {
         //todo json need less information to keep safe
+
         var json = new ObjToJson(accounts).toJson();
         res.render('customer/basicInfo',{
             accounts:json.data});
@@ -53,18 +54,6 @@ router.get('/trans',function (req,res,next) {
 
 router.get('/loan',function (req,res,next) {
     res.sendFile(appRoot+'/views/customer/loan.html');
-});
-
-router.post('/check6pw',function (req,res,next) {
-    //res.sendFile(appRoot+'/views/myViews/check6pw.html');
-});
-
-
-router.get('/ggg',function (req,res,next) {
-    var test ={
-        test:"hahahahhaha"
-    };
-    res.json(test);
 });
 
 

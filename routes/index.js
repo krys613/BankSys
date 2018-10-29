@@ -22,4 +22,8 @@ router.use('/customer',require('../controller/customer/customer'));
 router.use('/employee',require('../controller/employee/employee'));
 
 
+//authorization
+router.use('/authorization',require('../controller/user/authorization'));
+
+
 module.exports = router;

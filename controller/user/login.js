@@ -36,12 +36,12 @@ router.post('/confirmLogin',function (req,res,next) {
 
 router.post('/btn1',function (req,res,next) {
     var json = {
-
         attribute:"123"
-
     };
    res.json(json).end();
 });
+
+
 
 
 module.exports = router;

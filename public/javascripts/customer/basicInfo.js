@@ -1,29 +1,6 @@
-//get method to get all Accounts
-
+//get balance num
 function getBalance() {
-    if(checkToken()){
-        //todo show data or do commit
-        alert("get data");
-    }else {
-        $('#check6pwModal').modal("show");
-    }
-}
-
-function getAccounts() {
-    $.ajax({
-        url: "customer/basicInfo/getAccounts",
-        type: 'get',
-        dataType: 'json',
-        success: function (data) {
-            alert(data);
-        }
+    console.log("click");
+    getAuthorization("onetime",function (status,msg) {
     });
-}
-
-//display account in basicInfo
-function addCards(data) {
-    var accounts = data[data];
-    for (var i in accounts){
-
-    }
 }

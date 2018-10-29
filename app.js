@@ -31,6 +31,7 @@ app.use(sessionMiddleware);
 
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
+
 //////////////////////////////////////////////////////////////////////////
 
 app.use(logger('dev'));

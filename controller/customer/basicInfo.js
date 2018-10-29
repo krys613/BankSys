@@ -4,14 +4,6 @@ import async from 'async';
 import {CustomerQuery} from "../../server/data/customer";
 import {ObjToJson} from "../../server/tools/objToJson";
 
-router.get('/ggg',function (req,res,next) {
-    var test ={
-        test:"hahahahhaha"
-    };
-    res.json(test);
-});
-
-
 router.get('/getAccounts',function (req,res,next) {
     async.waterfall([
         function (callback) {
