@@ -1,4 +1,4 @@
-// todo fix bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! or write a modal
+// todo fix bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!may cause by bootstrap modal,fix or rewrite a modal
 // onetime and token
 function getAuthorization(type,callback) {
     if(type === "onetime"){
@@ -11,10 +11,13 @@ function getAuthorization(type,callback) {
            if(status){
                callback(true,"token exist");
            }else {
-               alert(msg);
-               getTimeLimitAuthorization(function (status,msg) {
-                   callback(status,msg);
-               });
+               if(msg == "SessionExpire"){
+                   alert(msg);
+               }else {
+                   getTimeLimitAuthorization(function (status,msg) {
+                       callback(status,msg);
+                   });
+               }
            }
         });
     }else {
