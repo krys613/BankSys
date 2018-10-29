@@ -20,7 +20,6 @@ export class CheckPW {
                     //can not find match user
                     match = false;
                 }else {
-                    //todo : logic error(set userID as primary key)
                     //find user
                     //check type
                     if(type !== result[0].type){

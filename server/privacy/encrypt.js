@@ -3,7 +3,6 @@ import crypto from 'crypto';
 function getKey(userID) {
     return "todo";
 }
-//todo replace sha1 to hmac
 function getHash(key,pw) {
     var sha1 = crypto.createHash("sha1");
     sha1.update(pw);

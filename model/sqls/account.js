@@ -2,9 +2,9 @@ export class AccountSql {
     constructor(){
 
     }
-	static creatAccount(CustID,CreatingDate,Password,Amount,Status){
-		return "INSERT INTO account(CustID,CreatingDate,Password,Amount,Status) "+
-		"VALUES ('"+CustID+"', '"+CreatingDate+"', '"+Password+"', "+Amount+", "+
+	static creatAccount(UserID,CreatingDate,Password,Amount,Status){
+		return "INSERT INTO account(UserID,CreatingDate,Password,Amount,Status) "+
+		"VALUES ('"+UserID+"', '"+CreatingDate+"', '"+Password+"', "+Amount+", "+
 		Status+")";
 	}
 	//取款时请将money置为负
@@ -15,11 +15,11 @@ export class AccountSql {
 	static getBalance(AccountNo,Password){
 		return "select Amount from account where AccountNo="+AccountNo+" and Password='"+Password+"'";
 	}
-	static singleAccountInfo(AccountNo,CustID){
-		return "select * from account where AccountNo="+AccountNo+" and CustID='"+CustID+"'";
+	static singleAccountInfo(AccountNo,UserID){
+		return "select * from account where AccountNo="+AccountNo+" and UserID='"+UserID+"'";
 	}
 	static getAllAccountInfo(UserID){
-		return "select * from account where CustID= (SELECT custID FROM customer WHERE UserID = "+UserID+")";
+		return "select * from account where UserID= (SELECT UserID FROM UserID WHERE UserID = "+UserID+")";
 	}
 	/*以下查询存取款记录*/
 	static depositRecord(AccountNo){
