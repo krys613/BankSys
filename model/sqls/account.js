@@ -12,7 +12,7 @@ export class AccountSql {
 		return "UPDATE account SET Amount=Amount+"+money+" where AccountNo="+AccountNo+
 		" and Password='"+Password+"'";
 	}
-	static getBalance(AccountNo,Password){
+	static getBalance(AccountNo){
 		return "select Amount from account where AccountNo="+AccountNo;
 	}
 	static singleAccountInfo(AccountNo,UserID){

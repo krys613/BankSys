@@ -45,15 +45,15 @@ router.get('/basicInfo',function (req,res,next) {
 });
 
 router.get('/home',function (req,res,next) {
-    res.sendFile(appRoot+'/views/customer/home.html');
+    res.render('customer/home');
 });
 
 router.get('/trans',function (req,res,next) {
-    res.sendFile(appRoot+'/views/customer/trans.html');
+    res.render('customer/trans');
 });
 
 router.get('/loan',function (req,res,next) {
-    res.sendFile(appRoot+'/views/customer/loan.html');
+    res.render('customer/loan');
 });
 
 
