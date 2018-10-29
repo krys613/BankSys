@@ -10,12 +10,14 @@
 
     <% for(var i in accounts){ %>
     <div class="card bg-light mb-3 accountCard" style="max-width: 18rem;">
-        <div class="card-header"><%= accounts[i].AccountNo %></div>
+        <!--todo hide middle of accountno-->
+        <div class="card-header"> <%= accounts[i].AccountNo %></div>
         <div class="card-body">
             <h5 class="card-title">I类卡</h5>
             <div class="cardBalanceArea">
-                <div class="cardBalance d-flex justify-content-center align-items-center" onclick="getBalance()">
+                <div class="cardBalance d-flex justify-content-center align-items-center" id="" onclick="getBalance(this)">
                     余额
+                    <%= <div>test</div> %>
                 </div>
             </div>
             <div class="btn-toolbar justify-content-between cardBtnGroup" role="toolbar" aria-label="Toolbar with button groups">
