@@ -13,13 +13,13 @@ export class AccountSql {
 		" and Password='"+Password+"'";
 	}
 	static getBalance(AccountNo,Password){
-		return "select Amount from account where AccountNo="+AccountNo+" and Password='"+Password+"'";
+		return "select Amount from account where AccountNo="+AccountNo;
 	}
 	static singleAccountInfo(AccountNo,UserID){
 		return "select * from account where AccountNo="+AccountNo+" and UserID='"+UserID+"'";
 	}
 	static getAllAccountInfo(UserID){
-		return "select * from account where UserID= (SELECT UserID FROM UserID WHERE UserID = "+UserID+")";
+		return "select * from account where UserID= "+UserID;
 	}
 	/*以下查询存取款记录*/
 	static depositRecord(AccountNo){

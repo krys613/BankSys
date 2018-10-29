@@ -62,7 +62,7 @@ function getTimeLimitAuthorization(callback) {
     });
 }
 
-//post to check 6pw
+//invisible pw input
 function check6pw(type,callback) {
     //listen hidden input
     //todo check num icheck?
@@ -95,6 +95,7 @@ function check6pw(type,callback) {
     });
 }
 
+//request
 function check6pwReq(pw,type,callback) {
     $.ajax({
         url: '/authorization/getAuthorization',
