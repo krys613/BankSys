@@ -3,10 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>银行业务系统</title>
-    <!--设置网页在浏览器tab选项卡上的图标-->
-    <link rel="shortcut icon" href="../../public/images/logo.png" type="image/x-icon">
-    <!-- Tell the browser to be responsive to screen width -->
+    <title>waterfalltest</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/node_modules/ionicons/dist/css/ionicons.min.css">
@@ -14,27 +11,29 @@
     <link rel="stylesheet" href="/public/stylesheets/customer/customer.css">
 </head>
 <body>
+    <button onclick="water()">hahha</button>
 
-<link rel="stylesheet" href="/public/stylesheets/myViews/check6pw.css">
-<div class="modal fade" id="check6pwModal" tabindex="-1" role="dialog"  aria-hidden="true" >
-    <div class="modal-dialog" role="document" onclick="fixFocus()">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">请输入6位数密码</h5>
-                <!--hidden part-->
-                <input type="text" id="hiddenInput" maxlength="6" style="opacity: 0;">
-            </div>
-            <div class="modal-body" style="height: 150px">
-                <!--display part-->
-                <div id="blocks" style="width: 100%">
-                </div>
-                <div id="checkResult">
-                    <!--todo loading icon-->
-                </div>
-            </div>
+    <div id="testbody" style="margin-left: 300px;margin-top: 50px;background: lightgray;height: 400px">
+
+        <div id="test1div" style="width:300px;height: 300px;background: #00B7FF;float: left">
+            test1
+            <button id="test1back">test1back</button>
+            <button id="test1next">test1next</button>
+        </div>
+        <div id="test2div" style="width:300px;height: 300px;background: #6a5a8c;float: left">
+            test2
+        </div>
+        <div id="test3div" style="width:300px;height: 300px;background: #ff7700;float: left">
+            test3
+            <button id="test3back">test3back</button>
+            <button id="test3next">test3next</button>
+
         </div>
     </div>
-</div>
+
+
+
+
 
 </body>
 </html>
@@ -44,3 +43,6 @@
 <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/node_modules/icheck/icheck.min.js"></script>
 
+<script src="/public/javascripts/myViews/check6pw.js"></script>
+<script src="/public/javascripts/waterfall.js"></script>
+<script src="/public/javascripts/test.js"></script>

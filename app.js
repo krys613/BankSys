@@ -25,7 +25,7 @@ require('babel-register');
 const session = require("express-session");
 const sessionMiddleware = session({
     secret: 'banssystem up up', //key
-    cookie: { maxAge: 60000 }
+    cookie: { maxAge: 6000000 }
 });
 app.use(sessionMiddleware);
 

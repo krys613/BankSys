@@ -1,6 +1,27 @@
+//add authorization html
+$.ajax({
+    url: '/authorization/getModal',
+    type: 'get',
+    success: function (data) {
+        $('body').append(data);
+    },
+    error :function (data) {
+
+    }
+});
+
+var check6pwModal ;
+var hiddenInput ;
+var check6pwBlocks ;
+var check6pwResult ;
 // todo fix bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!may cause by bootstrap modal,fix or rewrite a modal
 // onetime and token
 function getAuthorization(type,callback) {
+
+    check6pwModal = $('#check6pwModal');
+    hiddenInput = $('#hiddenInput');
+    check6pwBlocks = document.getElementById('blocks');
+    check6pwResult = $('#checkResult');
     if(type === "onetime"){
         getOneTimeAuthorization(function (status,msg) {
             callback(status,msg);
@@ -11,7 +32,7 @@ function getAuthorization(type,callback) {
            if(status){
                callback(true,"token exist");
            }else {
-               if(msg == "SessionExpire"){
+               if(msg === "SessionExpire"){
                    alert(msg);
                }else {
                    getTimeLimitAuthorization(function (status,msg) {
@@ -25,10 +46,7 @@ function getAuthorization(type,callback) {
     }
 }
 
-var check6pwModal = $('#check6pwModal');
-var hiddenInput = $('#hiddenInput');
-var check6pwBlocks = document.getElementById('blocks');
-var check6pwResult = $('#checkResult');
+
 
 
 function checkToken(callback) {
@@ -66,9 +84,8 @@ function getTimeLimitAuthorization(callback) {
 function check6pw(type,callback) {
     //listen hidden input
     //todo check num icheck?
-    console.log(check6pwModal);
     check6pwModal.modal('show');
-
+    console.log("ggg");
     hiddenInput.on('input',function (e) {
         //change blocks num by length
         var val = hiddenInput.val();

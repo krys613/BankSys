@@ -9,6 +9,9 @@ router.use('/',require('../controller/index'));
 //login
 router.use('/login',require('../controller/user/login'));
 
+//test
+router.use('/test',require('../controller/test'));
+
 
 //customer
 router.use('/customer',require('../controller/customer/customer'));

@@ -71,4 +71,8 @@ router.get('/checkToken',function (req,res,next) {
     }
 });
 
+router.get('/getModal',function (req,res,next) {
+    res.render('myViews/check6pw');
+});
+
 module.exports = router;
