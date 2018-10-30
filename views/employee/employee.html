@@ -24,13 +24,16 @@
                 <a class="nav-link active" href="#" onclick="show('/home')">首页</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" onclick="show('/basicInfo')">基本信息</a>
+                <a class="nav-link" href="#" onclick="show('/deposit')">存款</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">转账</a>
+                <a class="nav-link" href="#" onclick="show('/withdrawal')">取款</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">贷款</a>
+                <a class="nav-link" href="#" onclick="show('/loan')">贷款</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">汇票</a>
             </li>
         </ul>
     </div>
@@ -40,6 +43,7 @@
         </div>
     </div>
 </div>
+<%include ../myViews/check6pw.html %>
 </body>
 </html>
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -49,3 +53,4 @@
 <script src="/node_modules/icheck/icheck.min.js"></script>
 
 <script src="/public/javascripts/customer/customer.js"></script>
+<script src="/public/javascripts/myViews/check6pw.js"></script>
