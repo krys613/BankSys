@@ -2,17 +2,21 @@
 function getBalance(index) {
 
     getAuthorization("token",function (status,msg) {
-        var accountNo = $('#accountNo'+index).val();
-        accountNo = "123456";
-        if(true){
-            $.ajax({
-                url: '/customer/basicInfo/getBalance',
-                type: 'post',
-                data:{
-                    accountNo:accountNo
-                },
-                dataType: 'json',
-                success: function (data) {
+
+
+    });
+
+    var accountNo = $('#accountNo'+index).val();
+    accountNo = "123456";
+    if(true){
+        $.ajax({
+            url: '/customer/basicInfo/getBalance',
+            type: 'post',
+            data:{
+                accountNo:accountNo
+            },
+            dataType: 'json',
+            success: function (data) {
 
                     $('#balance'+index).val(data.balance);
                 },
