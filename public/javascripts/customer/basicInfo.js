@@ -1,9 +1,9 @@
 //get balance num
 function getBalance(index) {
 
-    // getAuthorization("token",function (status,msg) {
-    //
-    // });
+    getAuthorization("token",function (status,msg) {
+    
+    });
 
     var accountNo = $('#accountNo'+index).val();
     accountNo = "123456";
