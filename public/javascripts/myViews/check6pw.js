@@ -22,6 +22,19 @@ function getAuthorization(type,callback) {
     hiddenInput = $('#hiddenInput');
     check6pwBlocks = document.getElementById('blocks');
     check6pwResult = $('#checkResult');
+    check6pwModal.on('shown.bs.modal', function () {
+        fixFocus();
+    });
+
+    //clear thins when modal hidden
+    check6pwModal.on('hidden.bs.modal', function () {
+        hiddenInput.val("");
+        hiddenInput.blur();
+        check6pwBlocks.innerHTML="";
+        check6pwResult.html('');
+    });
+
+
     if(type === "onetime"){
         getOneTimeAuthorization(function (status,msg) {
             callback(status,msg);
@@ -45,9 +58,6 @@ function getAuthorization(type,callback) {
         callback(false,"wrong function");
     }
 }
-
-
-
 
 function checkToken(callback) {
     $.ajax({
@@ -85,7 +95,6 @@ function check6pw(type,callback) {
     //listen hidden input
     //todo check num icheck?
     check6pwModal.modal('show');
-    console.log("ggg");
     hiddenInput.on('input',function (e) {
         //change blocks num by length
         var val = hiddenInput.val();
@@ -125,8 +134,10 @@ function check6pwReq(pw,type,callback) {
         success: function (msg) {
             check6pwResult.html(msg.success?'success':"fail");
             setTimeout(function () {
-                callback(msg.success,msg.err);
+
                 check6pwModal.modal('hide');
+                callback(msg.success,msg.err);
+
             },500);
         },
         error :function (msg) {
@@ -139,15 +150,3 @@ function check6pwReq(pw,type,callback) {
 function fixFocus() {
     hiddenInput.focus();
 }
-
-check6pwModal.on('shown.bs.modal', function () {
-    fixFocus();
-});
-
-//clear thins when modal hidden
-check6pwModal.on('hidden.bs.modal', function () {
-    hiddenInput.val("");
-    hiddenInput.blur();
-    check6pwBlocks.innerHTML="";
-    check6pwResult.html('');
-});
