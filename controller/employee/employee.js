@@ -1,4 +1,7 @@
 import express from 'express';
+import async from "async";
+import {ObjToJson} from "../../server/tools/objToJson";
+import TokenManager from '../../server/privacy/tokenManager';
 var router = express.Router();
 
 //page
@@ -33,5 +36,29 @@ router.get('/ggg',function (req,res,next) {
     res.json(test);
 });
 
+
+router.get('/deposit',function (req,res,next) {
+    res.render('employee/deposit');
+});
+
+router.get('/draft',function (req,res,next) {
+    res.render('employee/draft');
+});
+
+router.get('/home',function (req,res,next) {
+    res.render('employee/home');
+});
+
+router.get('/trans',function (req,res,next) {
+    res.render('employee/trans');
+});
+
+router.get('/loan',function (req,res,next) {
+    res.render('employee/loan');
+});
+
+router.get('/withdrawal',function (req,res,next) {
+    res.render('employee/withdrawal');
+});
 
 module.exports = router;
