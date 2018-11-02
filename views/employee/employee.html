@@ -22,14 +22,55 @@
         </div>
         <div>
             <form class="navbar-nav navbar-right">
-                <button id="createAccount" class="btn btn-default btn-sm" onclick="">开户</button>
+                <button id="createAccount" class="btn btn-default btn-sm" >开户</button>
             </form>
             <form class="navbar-nav navbar-right">
-                <button id="log-out" class="btn btn-default btn-sm" onclick="" >注销</button>
+                <button id="log-out" class="btn btn-default btn-sm" >注销</button>
             </form>
         </div>
     </div>
 </nav>
+
+<!--开户模态框-->
+<div class="modal fade" id="caModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header" >
+                <h4 class="modal-title">
+                        开户
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 8px;">
+                <form id="applyAccount">
+                    <table style="width:80%;padding: 3px" class="table">
+                        <tr>
+                            <td>开户人姓名</td>
+                            <td colspan="3"><textarea name="customerName" class="form-control"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>开户人身份证号</td>
+                            <td colspan="3"><textarea name="customerID" class="form-control"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>创建人</td>
+                            <td><input type="text" class="form-control" readonly name="creator"></td>
+                        </tr>
+                        <tr>
+                            <td>创建时间</td>
+                            <td><input class="form-control startTime" name="creatTime" readonly></td>
+                        </tr>
+                    </table>
+                 </form>
+                <div style="height: 10px;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="alertModal_Cancel">取消</button>
+                <button type="button" id="applyForAccount" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-3 ">
@@ -56,7 +97,7 @@
     </div>
     <div class="col-md-9">
         <div id="content">
-            ceshi
+            欢迎使用银行系统
         </div>
     </div>
 </div>
