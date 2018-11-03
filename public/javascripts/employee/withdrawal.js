@@ -1,23 +1,23 @@
-function commitDeposit() {
+function commitWithdrawal() {
 
     getAuthorization("token",function (status,msg) {
         var accountNo = $('#customerAccount').val();
-        var depositAccount = $('#depositAccount').val();
+        var withdrawalAccount = $('#withdrawalAccount').val();
         if(true){
             $.ajax({
-                url: '/employee/deposit/commitDeposit',//todo
+                url: '/employee/withdrawal/commitWithdrawal',//todo
                 type: 'post',
                 data:{
                     accountNo:accountNo,
-                    amount:depositAccount
+                    Amount:withdrawalAccount
                 },
                 dataType: 'json',
                 success: function (data) {
 
-                    alert("存款成功");
+                    alert("取款成功");
                 },
-                error : function (data) {
-                    alert("存款失败");
+                error : function (err) {
+                    alert(err.message);
                 }
             });
         }

@@ -36,7 +36,7 @@ $('#applyForAccount').click(function(){
     var customerID = $('#caModal').find('textarea[name="customerID"]').val(); 
     $.ajax({
         type:'POST',
-        url:'',//todo
+        url:'/employee/employee/applyForAccount',//todo
         data:{
             'name':customerName,
             'custID':customerID
