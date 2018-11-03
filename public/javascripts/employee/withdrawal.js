@@ -1,15 +1,15 @@
 function commitWithdrawal() {
 
     getAuthorization("token",function (status,msg) {
-        var accountNo = $('#customerAccount').val();
-        var withdrawalAccount = $('#withdrawalAccount').val();
+        var AccountNo = $('#customerAccount').val();
+        var Amount = $('#withdrawalAccount').val();
         if(true){
             $.ajax({
                 url: '/employee/withdrawal/commitWithdrawal',//todo
                 type: 'post',
                 data:{
-                    accountNo:accountNo,
-                    Amount:withdrawalAccount
+                    AccountNo:AccountNo,
+                    Amount:Amount
                 },
                 dataType: 'json',
                 success: function (data) {

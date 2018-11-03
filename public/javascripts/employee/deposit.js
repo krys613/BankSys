@@ -1,15 +1,15 @@
 function commitDeposit() {
 
     getAuthorization("token",function (status,msg) {
-        var accountNo = $('#customerAccount').val();
-        var depositAccount = $('#depositAccount').val();
+        var AccountNo = $('#customerAccount').val();
+        var Amount = $('#depositAccount').val();
         if(true){
             $.ajax({
                 url: '/employee/deposit/commitDeposit',//todo
                 type: 'post',
                 data:{
-                    accountNo:accountNo,
-                    amount:depositAccount
+                    AccountNo:AccountNo,
+                    Amount:Amount
                 },
                 dataType: 'json',
                 success: function (data) {
