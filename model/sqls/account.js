@@ -5,13 +5,16 @@ export class AccountSql {
 	static creatAccount(UserID,CreatingDate,Password,Amount,Status){
 		return "INSERT INTO account(UserID,CreatingDate,Password,Amount,Status) "+
 		"VALUES ('"+UserID+"', '"+CreatingDate+"', '"+Password+"', "+Amount+", "+
-		Status+")";
+		Status+");";
 	}
 	//取款时请将money置为负
 	static updateAccountAmount(AccountNo,Password,money){
 		return "UPDATE account SET Amount=Amount+"+money+" where AccountNo="+AccountNo+
 		" and Password='"+Password+"'";
 	}
+	static isExistedUser(userID){
+        return "select name from user where userID="+userID;
+    }
 	static getBalance(AccountNo){
 		return "select Amount from account where AccountNo="+AccountNo;
 	}

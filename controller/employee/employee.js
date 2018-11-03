@@ -2,7 +2,11 @@ import express from 'express';
 import async from "async";
 import {ObjToJson} from "../../server/tools/objToJson";
 import TokenManager from '../../server/privacy/tokenManager';
+import {CheckPW} from "../../server/privacy/checkPW";
+import {ManageAccount} from "../../server/privacy/manageAccount";
+
 var router = express.Router();
+
 
 //page
 
@@ -61,4 +65,34 @@ router.get('/withdrawal',function (req,res,next) {
     res.render('employee/withdrawal');
 });
 
+
+router.post('/applyForAccount',function(req,res,next){
+    console.log(req.body);
+
+    var applicant = req.body;
+    var json = {
+        status: true,
+        message:"123"
+    };
+
+    async.waterfall([
+        function(callback){//一个callback对应再往下的一个callback
+            ManageAccount.CreateAccount(applicant.custID,applicant.PassWord,function (accountInfo) {//userInfo和下一行的accountInfo对应
+                callback(null,accountInfo);//userInfo接收CreateAccount函数的返回值
+            });
+        }
+    ],function (err,accountInfo) {//和前1行的accountInfo对应
+        json.status = accountInfo.match;
+        json.message = accountInfo.accountID
+
+        console.log(accountInfo)
+        res.json(json);
+
+    });
+
+
+
+});
+
 module.exports = router;
+
