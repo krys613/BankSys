@@ -8,9 +8,8 @@ export class AccountSql {
 		Status+");";
 	}
 	//取款时请将money置为负
-	static updateAccountAmount(AccountNo,Password,money){
-		return "UPDATE account SET Amount=Amount+"+money+" where AccountNo="+AccountNo+
-		" and Password='"+Password+"'";
+	static updateAccountAmount(AccountNo,money){
+		return "UPDATE account SET Amount=Amount+"+money+" where AccountNo="+AccountNo;
 	}
 	static isExistedUser(userID){
         return "select name from user where userID="+userID;

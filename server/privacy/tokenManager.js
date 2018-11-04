@@ -7,7 +7,6 @@ var wrongTimeExpire = 86400;
 class TokenManager {
     constructor(){
 
-
     }
 
     addToken(key){

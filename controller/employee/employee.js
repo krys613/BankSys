@@ -71,8 +71,8 @@ router.post('/applyForAccount',function(req,res,next){
 
     var applicant = req.body;
     var json = {
-        status: true,
-        message:"123"
+        status: false,
+        message:"Fail to apply for an account."
     };
 
     async.waterfall([
@@ -82,16 +82,73 @@ router.post('/applyForAccount',function(req,res,next){
             });
         }
     ],function (err,accountInfo) {//和前1行的accountInfo对应
-        json.status = accountInfo.match;
-        json.message = accountInfo.accountID
-
-        console.log(accountInfo)
+        if(err){
+            console.error("Error at CreateAccount.")
+                console.error("Reveived Info:",applicant)
+        }
+        else{
+            json.status = accountInfo.match;
+            json.message = accountInfo.accountID
+        }
         res.json(json);
-
     });
+});
+
+router.post('/deposit/commitDeposit',function(req,res,next){
+    console.log(req.body);
+
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message:"Fail to deposit."
+    };
+
+    async.waterfall([
+        function(callback){//一个callback对应再往下的一个callback
+            ManageAccount.changeMoney(applicant.AccountNo,applicant.Amount,function(accountInfo){
+                console.error(accountInfo)
+                callback(null,accountInfo);//userInfo接收CreateAccount函数的返回值
+            });
+        }
+    ],function (err,accountInfo) {//和前1行的accountInfo对应
+        if(err){
+            console.error("Error deposit at sql return.")
+            console.error("Reveived Info from interface:",applicant)
+        }
+        else{
+            resultInfo.status = accountInfo.match;
+        }
+        res.json(resultInfo);
+    });
+});
 
 
+router.post('/withdrawal/commitWithdrawal',function(req,res,next){
+    console.log(req.body);
 
+    var applicant = req.body;
+    applicant.Amount = '-'+applicant.Amount
+    var resultInfo = {
+        status: false,
+        message:"Fail to withdrawal."
+    };
+
+    async.waterfall([
+        function(callback){//一个callback对应再往下的一个callback
+            ManageAccount.reduceMoney(applicant.AccountNo,applicant.Amount,function(accountInfo){
+                callback(null,accountInfo);
+            });
+        }
+    ],function (err,accountInfo) {//和前1行的accountInfo对应
+        if(err){
+            console.error("Error Withdrawal at sql return.")
+            console.error("Reveived Info from interface:",applicant)
+        }
+        else{
+            resultInfo.status = accountInfo.match;
+        }
+        res.json(resultInfo);
+    });
 });
 
 module.exports = router;
