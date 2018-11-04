@@ -11,10 +11,11 @@ router.post('/testwaterfall',function (req,res,next) {
        testSuccess:true,
        testError:false,
        testMsg:"this is a msg",
-       receiveData:req.body
+       receiveData:req.body,
+       status:true
    };
    if(req.body.test1data2 =="123456"){
-       json.testSuccess = false;
+       json.status = false;
    }
    res.json(json);
 });

@@ -27,16 +27,16 @@ $('#createAccount').click(function(){
     $('#caModal').find('input[name="creator"]').val(loginName);
     var tempTime=today();
     $('#caModal').find('input[name="creatTime"]').val(tempTime);
-        
+
 });
 
-// post applyForAccount data 
+// post applyForAccount data
 $('#applyForAccount').click(function(){
-    var customerName = $('#caModal').find('textarea[name="customerName"]').val();  
-    var customerID = $('#caModal').find('textarea[name="customerID"]').val(); 
+    var customerName = $('#caModal').find('textarea[name="customerName"]').val();
+    var customerID = $('#caModal').find('textarea[name="customerID"]').val();
     $.ajax({
         type:'POST',
-        url:'',//todo
+        url:'/employee/applyForAccount',   //todo
         data:{
             'name':customerName,
             'custID':customerID

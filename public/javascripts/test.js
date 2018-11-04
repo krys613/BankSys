@@ -1,11 +1,11 @@
 
 var fall = [
     {
-        name:"填写资料",
+        name:"填写账号",
         container:"test1div",
         back:"",
         next:"test1next",
-        authorization:"onetime",
+        authorization:"",
         requestName:"",
         requestMethod:"",
         alertBtn:"test1alert",
@@ -23,7 +23,7 @@ var fall = [
         send:["test1data1","test1data2"]
     },
     {
-        name:"完成审核",
+        name:"填写流程",
         container:"test3div",
         back:"test3back",
         next:"test3next",
@@ -32,43 +32,24 @@ var fall = [
         requestMethod:"",
         alertBtn:"test3alert",
         send:[]
-    },
-    {
-        name:"",
-        container:"test2div",
-        back:"",
-        next:"",
-        authorization:"",
-        requestName:"testwaterfall1",
-        requestMethod:"",
-        alertBtn:"",
-        send:[]
-    },
-    {
-        name:"测试",
-        container:"test5div",
-        back:"test5back",
-        next:"",
-        authorization:"",
-        requestName:"",
-        requestMethod:"",
-        alertBtn:"test5alert",
-        send:[]
     }
 ];
 
 waterFall("testbody",fall);
 
+
+
+
 var resListener = function(result) {
-    console.log(result);
+    console.log("123");
 };
 addListen(0,resListener);
+
+
+
+
 
 var resListener1 = function (result) {
     console.log(result);
 };
 addListen(1,resListener1);
-
-
-
-

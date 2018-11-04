@@ -61,4 +61,12 @@ router.get('/withdrawal',function (req,res,next) {
     res.render('employee/withdrawal');
 });
 
+router.post('/applyForAccount',function (req,res,next) {
+    console.log(req.body);
+    var json={
+        status:true
+    };
+    res.json(json);
+});
+
 module.exports = router;
