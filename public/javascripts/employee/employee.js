@@ -32,14 +32,17 @@ $('#createAccount').click(function(){
 
 // post applyForAccount data
 $('#applyForAccount').click(function(){
-    var customerName = $('#caModal').find('textarea[name="customerName"]').val();
-    var customerID = $('#caModal').find('textarea[name="customerID"]').val();
+
+    var customerName = $('#caModal').find('input[name="customerName"]').val();
+    var customerID = $('#caModal').find('input[name="customerID"]').val();
+    var passWord = $('#caModal').find('input[name="Password"]').val();
     $.ajax({
         type:'POST',
-        url:'/employee/applyForAccount',   //todo
+        url:'/employee/applyForAccount',//todo
         data:{
             'name':customerName,
-            'custID':customerID
+            'custID':customerID,
+            'PassWord':passWord
         },
         dataType:'JSON',
         async:false,
