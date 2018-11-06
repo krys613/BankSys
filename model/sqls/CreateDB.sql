@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 29/10/2018 18:42:41
+ Date: 06/11/2018 15:25:43
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `account` (
   PRIMARY KEY (`AccountNo`),
   KEY `CustID` (`UserID`),
   CONSTRAINT `acc_fk_UserID` FOREIGN KEY (`UserID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=123491 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for bankdraft
@@ -116,11 +116,10 @@ CREATE TABLE `transaction_save` (
   `AccountNo` bigint(11) NOT NULL,
   `Date` date NOT NULL,
   `Amount` double(13,3) DEFAULT NULL,
-  `Description` tinytext COMMENT '备注',
   PRIMARY KEY (`Transaction_Save_ID`),
   KEY `AccountNo` (`AccountNo`),
   CONSTRAINT `transaction_save_ibfk_1` FOREIGN KEY (`AccountNo`) REFERENCES `account` (`AccountNo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for transaction_transfer
@@ -132,13 +131,12 @@ CREATE TABLE `transaction_transfer` (
   `AccountNoTo` bigint(11) NOT NULL,
   `Date` date NOT NULL,
   `Amount` int(11) NOT NULL,
-  `Description` tinytext,
   PRIMARY KEY (`Transaction_Transfer_ID`),
   KEY `AccountNoFrom` (`AccountNoFrom`),
   KEY `AccountNoTo` (`AccountNoTo`),
   CONSTRAINT `transaction_transfer_ibfk_1` FOREIGN KEY (`AccountNoFrom`) REFERENCES `account` (`AccountNo`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `transaction_transfer_ibfk_2` FOREIGN KEY (`AccountNoTo`) REFERENCES `account` (`AccountNo`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for transaction_withdraw
@@ -149,11 +147,10 @@ CREATE TABLE `transaction_withdraw` (
   `AccountNo` bigint(11) NOT NULL,
   `Date` date NOT NULL,
   `Amount` int(11) NOT NULL,
-  `Description` tinytext NOT NULL,
   PRIMARY KEY (`Transaction_Withdraw_ID`),
   KEY `AccoutNo` (`AccountNo`),
   CONSTRAINT `transaction_withdraw_ibfk_1` FOREIGN KEY (`AccountNo`) REFERENCES `account` (`AccountNo`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user

@@ -14,8 +14,11 @@ export class AccountSql {
 	static isExistedUser(userID){
         return "select name from user where userID="+userID;
     }
+    static isExistedAccount(AccountNo){
+        return "select Status from account where AccountNo="+AccountNo;
+    }
 	static getBalance(AccountNo){
-		return "select Amount from account where AccountNo="+AccountNo;
+		return "select Amount,Status from account where AccountNo="+AccountNo;
 	}
 	static singleAccountInfo(AccountNo,UserID){
 		return "select * from account where AccountNo="+AccountNo+" and UserID='"+UserID+"'";
