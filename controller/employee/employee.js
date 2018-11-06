@@ -93,35 +93,6 @@ router.post('/applyForAccount',function(req,res,next){
         res.json(json);
     });
 });
-//
-// router.post('/deposit/commitDeposit',function(req,res,next){
-//     console.log(req.body);
-//
-//     var applicant = req.body;
-//     var resultInfo = {
-//         status: false,
-//         message:"Fail to deposit."
-//     };
-//
-//     async.waterfall([
-//         function(callback){//一个callback对应再往下的一个callback
-//             ManageAccount.addMoney(applicant.AccountNo,applicant.Amount,function(accountInfo){
-//                 console.log(accountInfo)
-//                 callback(null,accountInfo);//userInfo接收CreateAccount函数的返回值
-//             });
-//         }
-//     ],function (err,accountInfo) {//和前1行的accountInfo对应
-//         if(err){
-//             console.error("Error deposit at sql return.")
-//             console.error("Reveived Info from interface:",applicant)
-//         }
-//         else{
-//             resultInfo.status = accountInfo.match;
-//         }
-//         res.json(resultInfo);
-//     });
-// });
-
 
 router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
@@ -129,24 +100,53 @@ router.post('/deposit/commitDeposit',function(req,res,next){
     var applicant = req.body;
     var resultInfo = {
         status: false,
-        message: "Fail to withdrawal."
+        message:"Fail to deposit."
     };
+
     async.waterfall([
-        function (callback) {//一个callback对应再往下的一个callback
-            ManageAccount.reduceMoney(applicant.AccountNo, applicant.Amount, function (accountInfo) {
-                callback(null, accountInfo);
+        function(callback){//一个callback对应再往下的一个callback
+            ManageAccount.addMoney(applicant.AccountNo,applicant.Amount,function(accountInfo){
+                console.log(accountInfo)
+                callback(null,accountInfo);//userInfo接收CreateAccount函数的返回值
             });
-        }], function (err, accountInfo) {//和前1行的accountInfo对应
-        if (err) {
-            console.error("Error Withdrawal at sql return.")
+        }
+    ],function (err,accountInfo) {//和前1行的accountInfo对应
+        if(err){
+            console.error("Error deposit at sql return.")
             console.error("Reveived Info from interface:",applicant)
         }
-        else {
+        else{
             resultInfo.status = accountInfo.match;
         }
         res.json(resultInfo);
     });
-})
+});
+
+//实现转账功能，还在coding中
+// router.post('/deposit/commitDeposit',function(req,res,next){
+//     console.log(req.body);
+//
+//     var applicant = req.body;
+//     var resultInfo = {
+//         status: false,
+//         message: "Fail to withdrawal."
+//     };
+//     async.waterfall([
+//         function (callback) {//一个callback对应再往下的一个callback
+//             ManageAccount.reduceMoney(applicant.AccountNo, applicant.Amount, function (accountInfo) {
+//                 callback(null, accountInfo);
+//             });
+//         }], function (err, accountInfo) {//和前1行的accountInfo对应
+//         if (err) {
+//             console.error("Error Withdrawal at sql return.")
+//             console.error("Reveived Info from interface:",applicant)
+//         }
+//         else {
+//             resultInfo.status = accountInfo.match;
+//         }
+//         res.json(resultInfo);
+//     });
+// })
 
 
 router.post('/withdrawal/commitWithdrawal',function(req,res,next){

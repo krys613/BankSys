@@ -145,42 +145,42 @@ export class ManageAccount {
             pool.releaseConnection(con);
         });
     }
-    static transfer_record(Account_from,Account_to,Amount,callback){
-        pool.getConnection(function (err,con) {
-            var resultInfo = {
-                match:false,
-                Status:null,
-                trans_save_ID:null
-            }
-            if(err){
-                console.error(err)
-            }
-            else{
-                console.log("dealing with recording...")
-                var time = today()
-                con.query(TransactionSql.withdraw(Number(AccountNo),time,Amount),function (err,result){
-                    if(err){
-                        console.error(err)
-                    }
-                    else{
-                        con.query("SELECT LAST_INSERT_ID()",function(err,transID){
-                            if(err){
-                                console.error(err)
-                            }
-                            else{
-                                console.log("withdrawal record successfully!")
-                                resultInfo.trans_save_ID = transID[0]['LAST_INSERT_ID()']
-                                resultInfo.match = true
-                                resultInfo.Status = true
-                                callback(resultInfo);
-                            }
-                        })
-                    }
-                })
-            }
-            pool.releaseConnection(con);
-        });
-    }
+    // static transfer_record(Account_from,Account_to,Amount,callback){
+    //     pool.getConnection(function (err,con) {
+    //         var resultInfo = {
+    //             match:false,
+    //             Status:null,
+    //             trans_save_ID:null
+    //         }
+    //         if(err){
+    //             console.error(err)
+    //         }
+    //         else{
+    //             console.log("dealing with recording...")
+    //             var time = today()
+    //             con.query(TransactionSql.withdraw(Number(AccountNo),time,Amount),function (err,result){
+    //                 if(err){
+    //                     console.error(err)
+    //                 }
+    //                 else{
+    //                     con.query("SELECT LAST_INSERT_ID()",function(err,transID){
+    //                         if(err){
+    //                             console.error(err)
+    //                         }
+    //                         else{
+    //                             console.log("withdrawal record successfully!")
+    //                             resultInfo.trans_save_ID = transID[0]['LAST_INSERT_ID()']
+    //                             resultInfo.match = true
+    //                             resultInfo.Status = true
+    //                             callback(resultInfo);
+    //                         }
+    //                     })
+    //                 }
+    //             })
+    //         }
+    //         pool.releaseConnection(con);
+    //     });
+    // }
     static CreateAccount(userID,password,callback){
         pool.getConnection(function (err,con) {
             var resultInfo = {
@@ -269,90 +269,90 @@ export class ManageAccount {
         console.log("reduction money finished.")
     }
 
-    static transferMoney(accountID_from,accountID_to,ammount,callback){
-        pool.getConnection(function (err,con) {
-            var resultInfo= {
-                match:false
-            }
-
-            async.waterfall([
-                function(callback) {
-                    ManageAccount.changeMoney(accountID_from,ammount,function (result) {
-                        if()
-                    })
-                    callback(null, 'one', 'two');
-                },
-                function(arg1, arg2, callback) {
-                    // arg1 now equals 'one' and arg2 now equals 'two'
-                    callback(null, 'three');
-                },
-                function(arg1, callback) {
-                    // arg1 now equals 'three'
-                    callback(null, 'done');
-                }
-            ], function (err, result) {
-                // result now equals 'done'
-            });
-
-            async.waterfall([
-                function(callback){//一个callback对应再往下的一个callback
-                    con.query(AccountSql.getBalance(Number(accountID_from)),function(err,balance){
-                        callback(null,balance)
-                    }),con.query(AccountSql.isExistedAccount(Number(accountID_to)),function(err,status){
-                        callback(null,status)
-                    })
-
-                    ManageAccount.reduceMoney(applicant.AccountNo,applicant.Amount,function(accountInfo){
-                        callback(null,accountInfo);
-                    });
-                }],function (err,accountInfo) {//和前1行的accountInfo对应
-                if(err){
-                    console.error("Error Withdrawal at sql return.")
-                    console.error("Reveived Info from interface:",applicant)
-                }
-                else{
-                    resultInfo.status = accountInfo.match;
-                }
-                res.json(resultInfo);
-            });
-
-            con.query(AccountSql.getBalance(Number(accountID_from)),function (err,balance){
-                if(err){
-                    //error
-                    console.error(err,"failed sql action.");
-                    callback(false);
-                }else if(!balance){
-                    //can not find match account
-                    console.error(balance,"reduction failed")
-                    callback(resultInfo);
-                }else {
-                    //work done
-                    if(t_ammount+balance[0]["Amount"]<0){
-                        console.log("not enough deposit.")
-                        callback(resultInfo)
-                    }else{
-                        console.log("money enough!")
-                        ManageAccount.changeMoney(accountID,ammount,function(result){//这里没有串行
-                            console.log("changing money succeed.")
-                            ManageAccount.withdrawal_record(accountID,-ammount,function(condition_for_recording){
-                                if(condition_for_recording.trans_save_ID!=null){
-                                    console.log("Withdrawal record successfully!")
-                                    resultInfo=result
-                                }else{
-                                    console.error("failed to record withdrawal!")
-                                }
-                                callback(resultInfo)
-                            })
-
-                        })
-
-                    }
-                }
-                console.log("reduction money finished.")
-                pool.releaseConnection(con);
-            });
-        });
-    }
+    // static transferMoney(accountID_from,accountID_to,ammount,callback){
+    //     pool.getConnection(function (err,con) {
+    //         var resultInfo= {
+    //             match:false
+    //         }
+    //
+    //         async.waterfall([
+    //             function(callback) {
+    //                 ManageAccount.changeMoney(accountID_from,ammount,function (result) {
+    //                     if()
+    //                 })
+    //                 callback(null, 'one', 'two');
+    //             },
+    //             function(arg1, arg2, callback) {
+    //                 // arg1 now equals 'one' and arg2 now equals 'two'
+    //                 callback(null, 'three');
+    //             },
+    //             function(arg1, callback) {
+    //                 // arg1 now equals 'three'
+    //                 callback(null, 'done');
+    //             }
+    //         ], function (err, result) {
+    //             // result now equals 'done'
+    //         });
+    //
+    //         async.waterfall([
+    //             function(callback){//一个callback对应再往下的一个callback
+    //                 con.query(AccountSql.getBalance(Number(accountID_from)),function(err,balance){
+    //                     callback(null,balance)
+    //                 }),con.query(AccountSql.isExistedAccount(Number(accountID_to)),function(err,status){
+    //                     callback(null,status)
+    //                 })
+    //
+    //                 ManageAccount.reduceMoney(applicant.AccountNo,applicant.Amount,function(accountInfo){
+    //                     callback(null,accountInfo);
+    //                 });
+    //             }],function (err,accountInfo) {//和前1行的accountInfo对应
+    //             if(err){
+    //                 console.error("Error Withdrawal at sql return.")
+    //                 console.error("Reveived Info from interface:",applicant)
+    //             }
+    //             else{
+    //                 resultInfo.status = accountInfo.match;
+    //             }
+    //             res.json(resultInfo);
+    //         });
+    //
+    //         con.query(AccountSql.getBalance(Number(accountID_from)),function (err,balance){
+    //             if(err){
+    //                 //error
+    //                 console.error(err,"failed sql action.");
+    //                 callback(false);
+    //             }else if(!balance){
+    //                 //can not find match account
+    //                 console.error(balance,"reduction failed")
+    //                 callback(resultInfo);
+    //             }else {
+    //                 //work done
+    //                 if(t_ammount+balance[0]["Amount"]<0){
+    //                     console.log("not enough deposit.")
+    //                     callback(resultInfo)
+    //                 }else{
+    //                     console.log("money enough!")
+    //                     ManageAccount.changeMoney(accountID,ammount,function(result){//这里没有串行
+    //                         console.log("changing money succeed.")
+    //                         ManageAccount.withdrawal_record(accountID,-ammount,function(condition_for_recording){
+    //                             if(condition_for_recording.trans_save_ID!=null){
+    //                                 console.log("Withdrawal record successfully!")
+    //                                 resultInfo=result
+    //                             }else{
+    //                                 console.error("failed to record withdrawal!")
+    //                             }
+    //                             callback(resultInfo)
+    //                         })
+    //
+    //                     })
+    //
+    //                 }
+    //             }
+    //             console.log("reduction money finished.")
+    //             pool.releaseConnection(con);
+    //         });
+    //     });
+    // }
 
 
 
