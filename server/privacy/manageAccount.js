@@ -16,7 +16,6 @@ export class ManageAccount {
         var resultInfo= {
             match:false
         };
-        console.log("----------")
         var t_amount = Number(ammount)
         async.waterfall([
             function (callback){
@@ -33,7 +32,6 @@ export class ManageAccount {
                     if(err){
                         console.error(err)
                     }else{
-<<<<<<< HEAD
                         if(status.length == 0){
                             console.error("No such an Account existed!!!")
                             callback(null,resultInfo)
@@ -45,29 +43,10 @@ export class ManageAccount {
                             console.error("The account doesn't have enough deposit!!!")
                             callback(null,resultInfo)
                         }
-                        else{
+                        else {
                             console.log("dealing with changing money...")
                             resultInfo.match = true
-                            callback(null,con)
-=======
-                        console.log(status);
-                        if(status.length == 0) {
-                            callback(null, resultInfo);
-                        }else {
-                            if(status[0]["Status"] == '0'){
-                                console.error("The account has been frozen!!!")
-                                callback(null,resultInfo)
-                            }
-                            else if(status[0]["Amount"]+t_amount<0){
-                                console.error("The account doesn't have enough deposit!!!")
-                                callback(null,resultInfo)
-                            }
-                            else{
-                                console.log("dealing with changing money...")
-                                resultInfo.match = true
-                                callback(null,con)
-                            }
->>>>>>> 358b8df9938e9aceb463fe6d157a0c0a8df90462
+                            callback(null, con)
                         }
                     }
                 })
