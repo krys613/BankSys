@@ -118,7 +118,7 @@ router.post('/deposit/commitDeposit',function(req,res,next){
         else{
             resultInfo.status = accountInfo.match;
         }
-        res.json(resultInfo);
+        res.status(resultInfo.status?200:500).json(resultInfo);
     });
 });
 
@@ -170,7 +170,7 @@ router.post('/withdrawal/commitWithdrawal',function(req,res,next){
             else{
                 resultInfo.status = accountInfo.match;
             }
-            res.json(resultInfo);
+            res.status(500).json(resultInfo);
         });
 
 });
