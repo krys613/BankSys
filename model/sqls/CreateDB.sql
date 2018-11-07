@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 06/11/2018 15:25:43
+ Date: 07/11/2018 10:43:48
 */
 
 SET NAMES utf8mb4;
@@ -32,6 +32,26 @@ CREATE TABLE `account` (
   KEY `CustID` (`UserID`),
   CONSTRAINT `acc_fk_UserID` FOREIGN KEY (`UserID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=123491 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of account
+-- ----------------------------
+BEGIN;
+INSERT INTO `account` VALUES (123456, '1', '2018-10-16', '1234', 123.00, '0');
+INSERT INTO `account` VALUES (123478, '1', '2018-11-03', 'dasdad', 200.00, '1');
+INSERT INTO `account` VALUES (123479, '1', '2018-11-03', 'asdasd', 0.00, '1');
+INSERT INTO `account` VALUES (123480, '1', '2018-11-03', 'asdasd', 0.00, '1');
+INSERT INTO `account` VALUES (123481, '1', '2018-11-04', 'adadojqdo', 0.00, '1');
+INSERT INTO `account` VALUES (123482, '1', '2018-11-04', 'zzzzzzz', 0.00, '1');
+INSERT INTO `account` VALUES (123483, '1', '2018-11-04', 'zzzzzzz', 0.00, '1');
+INSERT INTO `account` VALUES (123484, '1', '2018-11-04', 'zzzzzzz', 0.00, '1');
+INSERT INTO `account` VALUES (123485, '1', '2018-11-04', 'zzzzzzz', 0.00, '1');
+INSERT INTO `account` VALUES (123486, '1', '2018-11-04', 'zzzzzzz', 98310.00, '1');
+INSERT INTO `account` VALUES (123487, '1', '2018-11-04', 'zzzzzzz', 0.00, '1');
+INSERT INTO `account` VALUES (123488, '1', '2018-11-04', 'zzzzzzz', 0.00, '1');
+INSERT INTO `account` VALUES (123489, '1', '2018-11-04', 'zzzzzzz', 0.00, '1');
+INSERT INTO `account` VALUES (123490, '1', '2018-11-06', '12312312aaaa', 0.00, '1');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for bankdraft
@@ -119,7 +139,20 @@ CREATE TABLE `transaction_save` (
   PRIMARY KEY (`Transaction_Save_ID`),
   KEY `AccountNo` (`AccountNo`),
   CONSTRAINT `transaction_save_ibfk_1` FOREIGN KEY (`AccountNo`) REFERENCES `account` (`AccountNo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of transaction_save
+-- ----------------------------
+BEGIN;
+INSERT INTO `transaction_save` VALUES (1, 123486, '2018-11-05', 100.000);
+INSERT INTO `transaction_save` VALUES (3, 123486, '2018-11-06', 100.000);
+INSERT INTO `transaction_save` VALUES (4, 123486, '2018-11-06', 100.000);
+INSERT INTO `transaction_save` VALUES (5, 123478, '2018-11-06', 100.000);
+INSERT INTO `transaction_save` VALUES (6, 123486, '2018-11-06', 100.000);
+INSERT INTO `transaction_save` VALUES (7, 123486, '2018-11-06', 100.000);
+INSERT INTO `transaction_save` VALUES (8, 123486, '2018-11-07', 100000.000);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for transaction_transfer
@@ -150,7 +183,20 @@ CREATE TABLE `transaction_withdraw` (
   PRIMARY KEY (`Transaction_Withdraw_ID`),
   KEY `AccoutNo` (`AccountNo`),
   CONSTRAINT `transaction_withdraw_ibfk_1` FOREIGN KEY (`AccountNo`) REFERENCES `account` (`AccountNo`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of transaction_withdraw
+-- ----------------------------
+BEGIN;
+INSERT INTO `transaction_withdraw` VALUES (1, 123486, '2018-11-06', 9999);
+INSERT INTO `transaction_withdraw` VALUES (2, 123486, '2018-11-06', 999);
+INSERT INTO `transaction_withdraw` VALUES (3, 123486, '2018-11-06', 1000);
+INSERT INTO `transaction_withdraw` VALUES (4, 123486, '2018-11-06', 1000);
+INSERT INTO `transaction_withdraw` VALUES (5, 123456, '2018-11-06', 1000);
+INSERT INTO `transaction_withdraw` VALUES (6, 123486, '2018-11-07', 1000);
+INSERT INTO `transaction_withdraw` VALUES (7, 123486, '2018-11-07', 1000);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for user
@@ -163,5 +209,12 @@ CREATE TABLE `user` (
   `name` varchar(8) NOT NULL,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES ('1', '1234', 'customer', 'dsad');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

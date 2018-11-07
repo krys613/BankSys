@@ -109,6 +109,7 @@ router.post('/deposit/commitDeposit',function(req,res,next){
                 console.log(accountInfo)
                 callback(null,accountInfo);//userInfo接收CreateAccount函数的返回值
             });
+
         }
     ],function (err,accountInfo) {//和前1行的accountInfo对应
         if(err){
@@ -118,7 +119,7 @@ router.post('/deposit/commitDeposit',function(req,res,next){
         else{
             resultInfo.status = accountInfo.match;
         }
-        res.json(resultInfo);
+        res.status(resultInfo.status?200:500).json(resultInfo);
     });
 });
 

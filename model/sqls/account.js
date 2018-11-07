@@ -14,9 +14,6 @@ export class AccountSql {
 	static isExistedUser(userID){
         return "select name from user where userID="+userID;
     }
-    static isExistedAccount(AccountNo){
-        return "select Status from account where AccountNo="+AccountNo;
-    }
 	static getBalance(AccountNo){
 		return "select Amount,Status from account where AccountNo="+AccountNo;
 	}

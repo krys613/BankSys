@@ -32,7 +32,10 @@ export class ManageAccount {
                     if(err){
                         console.error(err)
                     }else{
-                        if(status[0]["Status"] == '0'){
+                        if(status.length == 0){
+                            console.error("No such an Account existed!!!")
+                            callback(null,resultInfo)
+                        }else if(status[0]["Status"] == '0'){
                             console.error("The account has been frozen!!!")
                             callback(null,resultInfo)
                         }
@@ -232,7 +235,7 @@ export class ManageAccount {
         ManageAccount.changeMoney(accountID,ammount,function(result){
             if(result.match!=true){
                 console.log("Addition failed")
-                callback(result)
+                callback(resultInfo)
             }else{
                 ManageAccount.save_record(accountID,ammount,function(condition_for_recording){
                     if(condition_for_recording.trans_save_ID!=null){
