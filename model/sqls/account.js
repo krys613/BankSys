@@ -7,6 +7,13 @@ export class AccountSql {
 		"VALUES ('"+UserID+"', '"+CreatingDate+"', '"+Password+"', "+Amount+", "+
 		Status+");";
 	}
+	/*
+	in accNoFrom bigint(11),
+			in accNoTo bigint(11), in today date, in amou double(11,2)
+	 */
+	static transfer(accountFrom,accountTo,date,amount){
+		return "CALL proc_TransferAction(" + accountFrom +","+accountTo+",'"+date+"',"+amount+ ",@a);";
+	}
 	//取款时请将money置为负
 	static updateAccountAmount(AccountNo,money){
 		return "UPDATE account SET Amount=Amount+"+money+" where AccountNo="+AccountNo;
@@ -30,9 +37,7 @@ export class AccountSql {
 	static withdrawRecord(AccountNo){
 		return "select * from transaction_withdraw where AccountNo="+AccountNo;
 	}
-	static transferRecord(AccountNo){
-		return "select * from transaction_transfer where AccountNoFrom="+AccountNo;
-	}
+
 }
 /*
 测试语句：
