@@ -3,6 +3,7 @@ import pool from '../../model/pool';
 import {AccountSql} from "../../model/sqls/account";
 import {TransactionSql} from "../../model/sqls/transaction";
 import async from "async";
+import {transferAffairSql} from "../../model/sqls/transaction";
 
 
 //check all privacy
@@ -277,9 +278,8 @@ export class ManageAccount {
     //
     //         async.waterfall([
     //             function(callback) {
-    //                 ManageAccount.changeMoney(accountID_from,ammount,function (result) {
-    //                     if()
-    //                 })
+    //                 con.query(transferAffairSql.transfer(123,321,),function (err,balance){
+    //
     //                 callback(null, 'one', 'two');
     //             },
     //             function(arg1, arg2, callback) {
@@ -294,27 +294,7 @@ export class ManageAccount {
     //             // result now equals 'done'
     //         });
     //
-    //         async.waterfall([
-    //             function(callback){//一个callback对应再往下的一个callback
-    //                 con.query(AccountSql.getBalance(Number(accountID_from)),function(err,balance){
-    //                     callback(null,balance)
-    //                 }),con.query(AccountSql.isExistedAccount(Number(accountID_to)),function(err,status){
-    //                     callback(null,status)
-    //                 })
     //
-    //                 ManageAccount.reduceMoney(applicant.AccountNo,applicant.Amount,function(accountInfo){
-    //                     callback(null,accountInfo);
-    //                 });
-    //             }],function (err,accountInfo) {//和前1行的accountInfo对应
-    //             if(err){
-    //                 console.error("Error Withdrawal at sql return.")
-    //                 console.error("Reveived Info from interface:",applicant)
-    //             }
-    //             else{
-    //                 resultInfo.status = accountInfo.match;
-    //             }
-    //             res.json(resultInfo);
-    //         });
     //
     //         con.query(AccountSql.getBalance(Number(accountID_from)),function (err,balance){
     //             if(err){
