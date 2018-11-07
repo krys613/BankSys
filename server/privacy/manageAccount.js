@@ -15,7 +15,8 @@ export class ManageAccount {
     static changeMoney(accountID,ammount,callback){
         var resultInfo= {
             match:false
-        }
+        };
+        console.log("----------")
         var t_amount = Number(ammount)
         async.waterfall([
             function (callback){
@@ -32,20 +33,24 @@ export class ManageAccount {
                     if(err){
                         console.error(err)
                     }else{
-                        if(status[0]["Status"] == '0'){
-                            console.error("The account has been frozen!!!")
-                            callback(null,resultInfo)
+                        console.log(status);
+                        if(status.length == 0) {
+                            callback(null, resultInfo);
+                        }else {
+                            if(status[0]["Status"] == '0'){
+                                console.error("The account has been frozen!!!")
+                                callback(null,resultInfo)
+                            }
+                            else if(status[0]["Amount"]+t_amount<0){
+                                console.error("The account doesn't have enough deposit!!!")
+                                callback(null,resultInfo)
+                            }
+                            else{
+                                console.log("dealing with changing money...")
+                                resultInfo.match = true
+                                callback(null,con)
+                            }
                         }
-                        else if(status[0]["Amount"]+t_amount<0){
-                            console.error("The account doesn't have enough deposit!!!")
-                            callback(null,resultInfo)
-                        }
-                        else{
-                            console.log("dealing with changing money...")
-                            resultInfo.match = true
-                            callback(null,con)
-                        }
-
                     }
                 })
             },
