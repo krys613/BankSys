@@ -170,10 +170,12 @@ function payLoan(loanId) {
         },
         dataType: "json",
         success: function (data) {
-
+            var loanTable = $('#loan'+loanId);
+            loanTable.removeClass("table-danger");
+            loanTable.addClass("table-secondaryr");
         },
         error: function (data) {
-            
+
         }
     });
 }

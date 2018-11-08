@@ -68,3 +68,7 @@ function today(){
 $('#log-out').click(function(){
     window.location.href = "localhost:3000/login";//todo 重定向
 });
+
+function examine() {
+    window.location.href = "/examine";
+}

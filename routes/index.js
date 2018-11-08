@@ -27,6 +27,7 @@ router.use('/employee',require('../controller/employee/employee'));
     //loan
     router.use('/employee/loan',require('../controller/employee/loan'));
 
+router.use('/examine',require('../controller/employee/examine'));
 
 //authorization
 router.use('/authorization',require('../controller/user/authorization'));

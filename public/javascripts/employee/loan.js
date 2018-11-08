@@ -129,8 +129,8 @@ var Loan = (function (){
             data:{
                 'loanID':loanID
             },
-            success:function (data) {  
-                data=JSON.parse(data);    
+            success:function (data) {
+                data=JSON.parse(data);
                 $('#Auditing').find('input[name="loanerName"]').val(data[0]['Name']);
                 $('#Auditing').find('input[name="loanerJob"]').val(data[0]['Job']);
                 $('#Auditing').find('input[name="loanerCompany"]').val(data[0]['Company']);
@@ -139,7 +139,7 @@ var Loan = (function (){
                 $('#Auditing').find('input[name="loanerPeriod"]').val(data[0]['LoanTerm']);
                 $('#Auditing').find('input[name="loanerAmount"]').val(data[0]['Amount']);
                 $('#Auditing').find('input[name="loanerRate"]').val(data[0]['loanRate']);
-                
+
             }
         })
     }
@@ -158,7 +158,7 @@ var Loan = (function (){
             },
             dataType:'JSON',
             async:false,
-            success:function(res){   
+            success:function(res){
                 alert(res.message);
             },
             error:function (err) {
@@ -167,7 +167,7 @@ var Loan = (function (){
         });
         $('#Auditing').modal('hide');
     });
-    
+
 
     //每次加载时都先清理
 	function checkbox(tableId) {
@@ -204,7 +204,7 @@ var Loan = (function (){
             $(this).val("");
         });
 
-        loan_table.columns().search("").draw();
+        loan_table.columns().search("").loan_table(loan_table);
     }
 
     Init();

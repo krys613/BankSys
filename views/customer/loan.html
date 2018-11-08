@@ -84,7 +84,7 @@
                         </tr>
 
                     <% } else if (loans[i].status == "1") {%>
-                        <tr class="table-danger">
+                        <tr class="table-danger" id="loan<%= loans[i].loanId %>">
                             <td><%= loans[i].loanId %></td>
                             <td><%= loans[i].amount %></td>
                             <td>审核未通过</td>
