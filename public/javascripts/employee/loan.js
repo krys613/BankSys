@@ -2,19 +2,21 @@ var Loan = (function (){
 	var loan_table;//全局变量贷款信息表
 	// var loginId=loginCookie.user.userId; // 获取登陆人ID
 
+    Init();
+
 	function Init() {
 		loan_table = $("#loanTable").DataTable({
 			ajax:{
 				"type": "POST",
                 "url": "/employee/loan/getAllLoan",
-                "data": function (d) {
-                    d.keys = JSON.stringify($('#searchDispatchForm').serializeObject())
+                "data": function () {
+                    
                 }
 			},
             searching: false,
             lengthChange: false,
             paging: true,
-            scrollCollapse: true,
+            scrollCollapse: false,
             serverSide: false,
             search: true,
             processing: true,
@@ -207,14 +209,11 @@ var Loan = (function (){
         loan_table.columns().search("").loan_table(loan_table);
     }
 
-    Init();
-
-	return {
-		loan_table:loan_table,
-		checkbox:checkbox,
-		search:search,
-		clearSearch:clearSearch,
+    return{
+        checkbox:checkbox,
+        search:search,
+        clearSearch:clearSearch,
         auditing:auditing,
-	}
+    }
 
 })();

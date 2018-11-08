@@ -3,18 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>银行业务系统</title>
-    <!--设置网页在浏览器tab选项卡上的图标-->
-    <link rel="shortcut icon" href="../../public/images/logo.png" type="image/x-icon">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/node_modules/datatables/media/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="/node_modules/ionicons/dist/css/ionicons.min.css">
-    <link rel="stylesheet" href="/node_modules/icheck/skins/square/blue.css">
-    <link rel="stylesheet" href="/public/stylesheets/employee/employee.css">
 </head>
 <body>
     <div class="col-xs-12">
@@ -39,7 +27,7 @@
     			<div class="col-md-2.5" style="float: right; margin-right: 78px;">
     				<button class="btn btn-primary left" style="padding-right:20px;padding-left:20px;" id="search">查询</button>
     				<button class="btn btn-primary right search_reset" style="padding-right:20px;padding-left:20px;" id="clearSearch">重置</button>
-                    <button class="btn btn-height btn-info" onclick="Loan.auditing()" id="auditing"> 审批 </button>
+                    <button class="btn btn-height btn-info" onclick="Loan.auditing()" id="auditingbutton"> 审批 </button>
     			</div>
     		</form>
     	</div>
@@ -140,15 +128,5 @@
 
 </body>
 </html>
-
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="/public/plugins/jQuery/jquery.cookie.js"></script>
-<script src="/public/plugins/jQuery/jquery.jdirk.js" type="text/javascript" charset="utf-8"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/node_modules/icheck/icheck.min.js"></script>
-<script src="/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
-
-<script src="/public/javascripts/employee/employee.js"></script>
-<script src="/public/javascripts/myViews/check6pw.js"></script>
 
 <script src="../../public/javascripts/employee/loan.js"></script>
