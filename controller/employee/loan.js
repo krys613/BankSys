@@ -36,9 +36,10 @@ router.post('/getBalance',function (req,res) {
 
 });
 
-router.post('/getAllLoan',function (req,res) {
+router.post('/getAllLoan',function (req,res,next) {
     console.log("---------------------");
     EmployeeQuery.getLoanList(function (err,result) {
+
         var json = new ObjToJson(result).toJsonRenameWith(["LoanID","Name","Status"],
                                                     ["loanID","customerName","auditingStatus"]);
         res.json (json);

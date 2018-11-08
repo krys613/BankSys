@@ -12,7 +12,7 @@ export class EmployeeQuery{
             con.query(loanSql.showAllLoan(),function (err,result) {
                if (err){
                    console.log(err);
-               }  
+               }
                pool.releaseConnection(con);
                callback(err,result);
             });

@@ -158,3 +158,22 @@ $(document).ready(function () {
         });
     });
 });
+
+function payLoan(loanId) {
+    console.log(loanId)
+    $.ajax({
+        //todo 还款
+        url: "json/loan_apply_test.json",
+        type: "post",
+        data: {
+            loanId: loanId
+        },
+        dataType: "json",
+        success: function (data) {
+
+        },
+        error: function (data) {
+            
+        }
+    });
+}

@@ -70,7 +70,25 @@ router.get('/trans',function (req,res,next) {
 });
 
 router.get('/loan',function (req,res,next) {
-    res.render('customer/loan');
+    var json = [
+        {
+            loanId: "1",
+            status: "0",
+            amount: 300
+
+        },{
+            loanId: "2",
+            status: "1",
+            amount: 400
+        },{
+            loanId: "3",
+            status: "2",
+            amount: 500
+        }
+    ];
+    res.render('customer/loan',{
+        loans:json
+    });
 });
 
 
