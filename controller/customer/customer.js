@@ -49,6 +49,10 @@ router.get('/home',function (req,res,next) {
 });
 
 router.get('/trans',function (req,res,next) {
+    var accountNo = req.query.accountNo;
+    if(accountNo != null){
+        
+    }
     res.render('customer/trans');
 });
 

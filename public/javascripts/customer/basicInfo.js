@@ -2,8 +2,7 @@
 function getBalance(index) {
 
     getAuthorization("token",function (status,msg) {
-        var accountNo = $('#accountNo'+index).val();
-        accountNo = "123456";
+        var accountNo = $('#accountNo'+index).text();
         if(true){
             $.ajax({
                 url: '/customer/basicInfo/getBalance',
@@ -13,8 +12,7 @@ function getBalance(index) {
                 },
                 dataType: 'json',
                 success: function (data) {
-
-                    $('#balance'+index).val(data.balance);
+                    $('#balance'+index).text(data.balance);
                 },
                 error : function (data) {
 
@@ -36,7 +34,7 @@ function getInfo(index) {
                 },
                 dataType: 'json',
                 success: function (data) {
-
+                    $('#balance'+index).text(data.balance)
                 },
                 error : function (data) {
 
@@ -44,6 +42,27 @@ function getInfo(index) {
             });
         }else {
             alert(msg);
+        }
+    });
+}
+
+function trans(index) {
+    myRedirect('customer','trans',{accountNo:1});
+}
+
+function myRedirect(type,url,data) {
+    $.ajax({
+        url: '/'+type+'/'+url,
+        type: 'get',
+        data: data,
+        dataType: 'html',
+        success: function (data) {
+            $('#content').html(data);
+            $('#'+type+url).tab('show');
+        },
+        error : function (data) {
+            alert('身份已经过期');
+            //todo redirect
         }
     });
 }

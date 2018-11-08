@@ -21,12 +21,12 @@ router.get('/getAccounts',function (req,res,next) {
 
 router.post('/getBalance',function (req,res) {
     var accountNo = req.body.accountNo;
-
+    console.log(accountNo);
     pool.getConnection(
         function (err,con) {
             con.query(AccountSql.getBalance(accountNo),function (err,result) {
                 var json ={
-                    balance:result[0]
+                    balance:result[0].Amount
                 };
                 res.json(json);
             });
