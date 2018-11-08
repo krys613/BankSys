@@ -95,7 +95,7 @@ router.post('/applyForAccount',function(req,res,next){
 });
 
 //存款
-router.post('/deposit/commitDeposit',function(req,res,next){
+/*router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 
     var applicant = req.body;
@@ -123,11 +123,12 @@ router.post('/deposit/commitDeposit',function(req,res,next){
         }
         res.status(resultInfo.status?200:500).json(resultInfo);
     });
-});
+});*/
 
+//conding
 //转账
 router.post('/trans/commitTrans',function(req,res,next){
-    console.log(req.body);
+    //console.log(req.body);
 
     //AccountNoFrom: '1231', AccountNoTo: '22222', Amount: '12'
     var applicant = req.body;
@@ -137,7 +138,8 @@ router.post('/trans/commitTrans',function(req,res,next){
     };
     async.waterfall([
         function (callback) {//一个callback对应再往下的一个callback
-            ManageAccount.transferMoney(applicant.AccountNoFrom, applicant.AccountNoTo,applicant.Amount, function(accountInfo) {
+            ManageAccount.transferMoney(applicant.AccountNoFrom, applicant.AccountNoTo,
+                applicant.nameFrom,applicant.nameTo,applicant.Amount, function(accountInfo) {/*("123482", "123481","dsad","dsad","12", function(accountInfo) {*/
                 callback(null, accountInfo);
             });
         }], function (err, accountInfo) {//和前1行的accountInfo对应

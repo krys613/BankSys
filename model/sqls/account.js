@@ -11,9 +11,18 @@ export class AccountSql {
 	in accNoFrom bigint(11),
 			in accNoTo bigint(11), in today date, in amou double(11,2)
 	 */
+	//转账
 	static transfer(accountFrom,accountTo,date,amount){
 		return "CALL proc_TransferAction(" + accountFrom +","+accountTo+",'"+date+"',"+amount+ ",@a);";
 	}
+	//获得userID
+    static getUserID(name){
+        return "select userID from user where name='"+name+"'";
+    }
+	//核对姓名和accountID
+    static check_with_Account_UserID(userID,accountID){
+        return "select Status from account where userID = "+userID +" and AccountNo = " + accountID;
+    }
 	//取款时请将money置为负
 	static updateAccountAmount(AccountNo,money){
 		return "UPDATE account SET Amount=Amount+"+money+" where AccountNo="+AccountNo;

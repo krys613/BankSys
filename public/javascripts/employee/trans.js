@@ -4,6 +4,8 @@ function commitTrans() {
         var fromNo = $('#fromAccount').val();
         var toNo = $('#toAccount').val();
         var amount = $('#transAmount').val();
+        var fromName = $('#fromName').val();
+        var toName = $('#toName').val();
         if(true){
             $.ajax({
                 url: '/employee/trans/commitTrans',
@@ -11,6 +13,8 @@ function commitTrans() {
                 data:{
                     AccountNoFrom:fromNo,
                     AccountNoTo:toNo,
+                    nameFrom:fromName,
+                    nameTo:toName,
                     Amount:amount
                 },
                 dataType: 'json',

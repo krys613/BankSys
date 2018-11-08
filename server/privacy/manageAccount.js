@@ -147,42 +147,6 @@ export class ManageAccount {
             pool.releaseConnection(con);
         });
     }
-    // static transfer_record(Account_from,Account_to,Amount,callback){
-    //     pool.getConnection(function (err,con) {
-    //         var resultInfo = {
-    //             match:false,
-    //             Status:null,
-    //             trans_save_ID:null
-    //         }
-    //         if(err){
-    //             console.error(err)
-    //         }
-    //         else{
-    //             console.log("dealing with recording...")
-    //             var time = today()
-    //             con.query(TransactionSql.withdraw(Number(AccountNo),time,Amount),function (err,result){
-    //                 if(err){
-    //                     console.error(err)
-    //                 }
-    //                 else{
-    //                     con.query("SELECT LAST_INSERT_ID()",function(err,transID){
-    //                         if(err){
-    //                             console.error(err)
-    //                         }
-    //                         else{
-    //                             console.log("withdrawal record successfully!")
-    //                             resultInfo.trans_save_ID = transID[0]['LAST_INSERT_ID()']
-    //                             resultInfo.match = true
-    //                             resultInfo.Status = true
-    //                             callback(resultInfo);
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //         }
-    //         pool.releaseConnection(con);
-    //     });
-    // }
     static CreateAccount(userID,password,callback){
         pool.getConnection(function (err,con) {
             var resultInfo = {
@@ -272,42 +236,110 @@ export class ManageAccount {
     }
 
 
-    static transferMoney(accountID_from,accountID_to,ammount,callback){
+    static transferMoney(accountID_from,accountID_to,nameFrom,nameTo,ammount,callback){
         var resultInfo= {
             match:false
         };
-        pool.getConnection(function (err,con) {
-            if(err){
-                console.log(err)
-            }
-            else{
-                var time = today()
-                con.query(AccountSql.transfer(Number(accountID_from),Number(accountID_to),time,Number(ammount)),function (err,result){
+        async.waterfall([
+            function (callback){
+                pool.getConnection(function(err,con) {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        callback(null, con)
+                    }
+                })
+            },function (con,callback) {
+                con.query(AccountSql.getUserID(nameFrom),function (err,user_id) {
                     if(err){
+                        console.error(err)
+                    }else{
+                        if(user_id.length == 0){
+                            console.error("There is no such a user of sending!")
+                            callback(1,con)
+                        }else{
+                            console.log(("Get userID_from successfully."))
+                            callback(null,con,user_id[0]["userID"])
+                        }
+                    }
+                })
+            },function (con,user_id,callback) {
+                con.query(AccountSql.check_with_Account_UserID(user_id,Number(accountID_from)),function (err,sta) {
+                    if(err){
+                        console.error(err)
+                    }else{
+                        if(sta.length != 0){
+                            if(sta[0]["Status"]==0){
+                                console.error("The account of sending has been frozen!")
+                                callback(1,con)
+                            }else{
+                                console.log(("Check User_From and Account_From successfully."))
+                                callback(null,con)
+                            }
+                        }else{
+                            console.error("The account of sending doesn't exist!")
+                            callback(1,con)
+                        }
+                    }
+                })
+            },function (con,callback) {
+                con.query(AccountSql.getUserID(nameTo),function (err,user_id) {
+                    if(err){
+                        console.error(err)
+                    }else{
+                        if(user_id.length == 0){
+                            console.error("There is no such a user of receiving!")
+                            callback(1,con)
+                        }else{
+                            console.log(("Get userID_to successfully."))
+                            callback(null,con,user_id[0]["userID"])
+                        }
+                    }
+                })
+            },function (con,user_id,callback) {
+                con.query(AccountSql.check_with_Account_UserID(user_id,Number(accountID_to)),function (err,sta) {
+                    if(err){
+                        console.error(err)
+                    }else{
+                        if(sta.length != 0){
+                            if(sta[0]["Status"]==0){
+                                console.error("The account of receiving has been frozen!")
+                                callback(1,con)
+                            }else{
+                                console.log(("Check User_to and Account_to successfully."))
+                                callback(null,con)
+                            }
+                        }else{
+                            console.error("The account of receiving doesn't exist!")
+                            callback(1,con)
+                        }
+                    }
+                })
+            },function (con,callback) {
+                var time = today()
+                con.query(AccountSql.transfer(Number(accountID_from), Number(accountID_to), time, Number(ammount)), function (err, result) {
+                    if (err) {
                         console.log(err)
                     }
-                    else{
-                        if(result[0][0]["transRecordNo"]!=null){
+                    else {
+                        if (result[0][0]["transRecordNo"] != null) {
                             resultInfo.match = true
-                            console.log("Transfer money successfully. Transfer Record number is "+result[0][0]["transRecordNo"])
-                        }else{
+                            console.log("Transfer money successfully. Transfer Record number is " + result[0][0]["transRecordNo"])
+                            callback(null,con)
+                        } else {
                             console.log("Transfer money can't succeed in Mysql.")
+                            callback(null,con)
                         }
 
                     }
-                    callback(resultInfo)
                 })
+            }],function(err,con){
+                callback(resultInfo)
+                console.log("Transfer money finished.")
+                pool.releaseConnection(con);
             }
-            console.log("Transfer money finished.")
-            pool.releaseConnection(con);
-        });
-
+        )
     }
-
-
-
-
-
 }
 function today(){
     var today=new Date(),
