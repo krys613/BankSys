@@ -3,7 +3,6 @@ import pool from '../../model/pool';
 import {AccountSql} from "../../model/sqls/account";
 import {TransactionSql} from "../../model/sqls/transaction";
 import async from "async";
-import {transferAffairSql} from "../../model/sqls/transaction";
 
 
 //check all privacy
@@ -16,7 +15,6 @@ export class ManageAccount {
         var resultInfo= {
             match:false
         };
-        console.log("----------")
         var t_amount = Number(ammount)
         async.waterfall([
             function (callback){
@@ -33,24 +31,21 @@ export class ManageAccount {
                     if(err){
                         console.error(err)
                     }else{
-
-                        console.log(status);
-                        if(status.length == 0) {
-                            callback(null, resultInfo);
-                        }else {
-                            if(status[0]["Status"] == '0'){
-                                console.error("The account has been frozen!!!")
-                                callback(null,resultInfo)
-                            }
-                            else if(status[0]["Amount"]+t_amount<0){
-                                console.error("The account doesn't have enough deposit!!!")
-                                callback(null,resultInfo)
-                            }
-                            else{
-                                console.log("dealing with changing money...")
-                                resultInfo.match = true
-                                callback(null,con)
-                            }
+                        if(status.length == 0){
+                            console.error("No such an Account existed!!!")
+                            callback(null,resultInfo)
+                        }else if(status[0]["Status"] == '0'){
+                            console.error("The account has been frozen!!!")
+                            callback(null,resultInfo)
+                        }
+                        else if(status[0]["Amount"]+t_amount<0){
+                            console.error("The account doesn't have enough deposit!!!")
+                            callback(null,resultInfo)
+                        }
+                        else {
+                            console.log("dealing with changing money...")
+                            resultInfo.match = true
+                            callback(null, con)
                         }
                     }
                 })
@@ -276,69 +271,39 @@ export class ManageAccount {
         console.log("reduction money finished.")
     }
 
-    // static transferMoney(accountID_from,accountID_to,ammount,callback){
-    //     pool.getConnection(function (err,con) {
-    //         var resultInfo= {
-    //             match:false
-    //         }
-    //
-    //         async.waterfall([
-    //             function(callback) {
-    //                 con.query(transferAffairSql.transfer(123,321,),function (err,balance){
-    //
-    //                 callback(null, 'one', 'two');
-    //             },
-    //             function(arg1, arg2, callback) {
-    //                 // arg1 now equals 'one' and arg2 now equals 'two'
-    //                 callback(null, 'three');
-    //             },
-    //             function(arg1, callback) {
-    //                 // arg1 now equals 'three'
-    //                 callback(null, 'done');
-    //             }
-    //         ], function (err, result) {
-    //             // result now equals 'done'
-    //         });
-    //
-    //
-    //
-    //         con.query(AccountSql.getBalance(Number(accountID_from)),function (err,balance){
-    //             if(err){
-    //                 //error
-    //                 console.error(err,"failed sql action.");
-    //                 callback(false);
-    //             }else if(!balance){
-    //                 //can not find match account
-    //                 console.error(balance,"reduction failed")
-    //                 callback(resultInfo);
-    //             }else {
-    //                 //work done
-    //                 if(t_ammount+balance[0]["Amount"]<0){
-    //                     console.log("not enough deposit.")
-    //                     callback(resultInfo)
-    //                 }else{
-    //                     console.log("money enough!")
-    //                     ManageAccount.changeMoney(accountID,ammount,function(result){//这里没有串行
-    //                         console.log("changing money succeed.")
-    //                         ManageAccount.withdrawal_record(accountID,-ammount,function(condition_for_recording){
-    //                             if(condition_for_recording.trans_save_ID!=null){
-    //                                 console.log("Withdrawal record successfully!")
-    //                                 resultInfo=result
-    //                             }else{
-    //                                 console.error("failed to record withdrawal!")
-    //                             }
-    //                             callback(resultInfo)
-    //                         })
-    //
-    //                     })
-    //
-    //                 }
-    //             }
-    //             console.log("reduction money finished.")
-    //             pool.releaseConnection(con);
-    //         });
-    //     });
-    // }
+
+    static transferMoney(accountID_from,accountID_to,ammount,callback){
+        var resultInfo= {
+            match:false
+        };
+        pool.getConnection(function (err,con) {
+            if(err){
+                console.log(err)
+            }
+            else{
+                var time = today()
+                con.query(AccountSql.transfer(Number(accountID_from),Number(accountID_to),time,Number(ammount)),function (err,result){
+                    if(err){
+                        console.log(err)
+                    }
+                    else{
+                        if(result[0][0]["transRecordNo"]!=null){
+                            resultInfo.match = true
+                            console.log("Transfer money successfully. Transfer Record number is "+result[0][0]["transRecordNo"])
+                        }else{
+                            console.log("Transfer money can't succeed in Mysql.")
+                        }
+
+                    }
+                    callback(resultInfo)
+                })
+            }
+            console.log("Transfer money finished.")
+            pool.releaseConnection(con);
+        });
+
+    }
+
 
 
 

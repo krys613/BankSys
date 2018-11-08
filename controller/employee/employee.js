@@ -65,14 +65,14 @@ router.get('/withdrawal',function (req,res,next) {
     res.render('employee/withdrawal');
 });
 
-
+//创建账户
 router.post('/applyForAccount',function(req,res,next){
     console.log(req.body);
 
     var applicant = req.body;
     var json = {
         status: false,
-        message:"Fail to apply for an account."
+        message:null
     };
 
     async.waterfall([
@@ -94,6 +94,7 @@ router.post('/applyForAccount',function(req,res,next){
     });
 });
 
+//存款
 router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 
@@ -114,42 +115,45 @@ router.post('/deposit/commitDeposit',function(req,res,next){
     ],function (err,accountInfo) {//和前1行的accountInfo对应
         if(err){
             console.error("Error deposit at sql return.")
-            console.error("Reveived Info from interface:",applicant)
+            console.error("Reveived Info from interface: ",applicant)
         }
         else{
             resultInfo.status = accountInfo.match;
+            resultInfo.message = "Deposit successfully."
         }
         res.status(resultInfo.status?200:500).json(resultInfo);
     });
 });
 
-//实现转账功能，还在coding中
-// router.post('/deposit/commitDeposit',function(req,res,next){
-//     console.log(req.body);
-//
-//     var applicant = req.body;
-//     var resultInfo = {
-//         status: false,
-//         message: "Fail to withdrawal."
-//     };
-//     async.waterfall([
-//         function (callback) {//一个callback对应再往下的一个callback
-//             ManageAccount.reduceMoney(applicant.AccountNo, applicant.Amount, function (accountInfo) {
-//                 callback(null, accountInfo);
-//             });
-//         }], function (err, accountInfo) {//和前1行的accountInfo对应
-//         if (err) {
-//             console.error("Error Withdrawal at sql return.")
-//             console.error("Reveived Info from interface:",applicant)
-//         }
-//         else {
-//             resultInfo.status = accountInfo.match;
-//         }
-//         res.json(resultInfo);
-//     });
-// })
+//转账
+router.post('/trans/commitTrans',function(req,res,next){
+    console.log(req.body);
 
+    //AccountNoFrom: '1231', AccountNoTo: '22222', Amount: '12'
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message: "Fail to transfer."
+    };
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+            ManageAccount.transferMoney(applicant.AccountNoFrom, applicant.AccountNoTo,applicant.Amount, function(accountInfo) {
+                callback(null, accountInfo);
+            });
+        }], function (err, accountInfo) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
+        }
+        else {
+            resultInfo.status = accountInfo.match;
+            resultInfo.message = "transfer successfully."
+        }
+        res.status(resultInfo.status?200:500).json(resultInfo);
+    });
+})
 
+//取款
 router.post('/withdrawal/commitWithdrawal',function(req,res,next){
     console.log(req.body);
 
@@ -166,12 +170,13 @@ router.post('/withdrawal/commitWithdrawal',function(req,res,next){
         }],function (err,accountInfo) {//和前1行的accountInfo对应
             if(err){
                 console.error("Error Withdrawal at sql return.")
-                console.error("Reveived Info from interface:",applicant)
+                console.error("Reveived Info from interface: ",applicant)
             }
             else{
                 resultInfo.status = accountInfo.match;
+                resultInfo.message = "withdraw successfully."
             }
-            res.json(resultInfo);
+            res.status(resultInfo.status?200:500).json(resultInfo);
         });
 
 });
