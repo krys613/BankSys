@@ -474,7 +474,7 @@ export class ManageAccount {
         })
     }
 
-    static checkloan(LoanID,state,callback){
+    static checkloan(LoanID,status,callback){
         var resultInfo= {
             match:false
         };
@@ -502,7 +502,7 @@ export class ManageAccount {
                     }
                 })
             },function (con,callback) {
-                con.query(loanSql.updateStatus(LoanID,state),function (err) {
+                con.query(loanSql.updateStatus(LoanID,status),function (err) {
                     if(err){
                         console.log(err);
                     }else{
@@ -513,12 +513,11 @@ export class ManageAccount {
                 })
             }],function(err,con){
             callback(resultInfo)
-            console.log("Update loan state finished.")
+            console.log("Update loan status finished.")
             pool.releaseConnection(con);
         })
     }
 
-    //TODO
     static paymentLoan(LoanID,callback){
         var resultInfo= {
             match:false
@@ -556,24 +555,39 @@ export class ManageAccount {
                     if(err){
                         console.log(err);
                     }else{
-                        var payment = condition[0]["Amount"]/condition[0]["LoanTerm"];
-                        console.log(payment)
-                        console.log(condition[0]["Amount"])
-                        if(balance >= payment){
-                            console.log("There is enough balance.")
-                            callback(null,con,payment)
-                        }else{
-                            console.log("The balance is not enough.")
+                        if(balance[0]["Status"]==0){
+                            console.log("The account is not available.")
                             callback(1,con)
+                        }else {
+                            var payment = condition[0]["Amount"]/condition[0]["LoanTerm"];
+                            console.log(payment)
+                            console.log(condition[0]["Amount"])
+                            if(balance[0]["Amount"] >= payment){
+                                console.log("There is enough balance.")
+                                callback(null,con,payment,condition)
+                            }else{
+                                console.log("The balance is not enough.")
+                                callback(1,con)
+                            }
                         }
                     }
                 })
-            },function (con,payment,callback) {
+            },function (con,payment,condition,callback) {
                 con.query(loanSql.updateLoan(LoanID,payment),function (err) {
                     if(err){
                         console.log(err);
                     }else{
                         console.log("Payment the loan successfully.")
+                        resultInfo.match = true
+                        callback(null,payment,condition,con)
+                    }
+                })
+            },function (payment,condition,con,callback) {
+                con.query(AccountSql.updateAccountAmount(condition[0]["AccountNo"],0-payment),function (err) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log("Reduce the account successfully.")
                         resultInfo.match = true
                         callback(null,con)
                     }

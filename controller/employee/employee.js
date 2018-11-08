@@ -302,7 +302,6 @@ router.post('/deposit/commitDeposit',function(req,res,next){
     });
 })*/
 
-//还款 TODO
 router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 
@@ -313,7 +312,7 @@ router.post('/deposit/commitDeposit',function(req,res,next){
     };
     async.waterfall([
         function (callback) {//一个callback对应再往下的一个callback
-            ManageAccount.paymentLoan("10", function(accountInfo,list) {
+            ManageAccount.paymentLoan("11", function(accountInfo,list) {
                 callback(null, accountInfo);
             });
         }], function (err, accountInfo) {//和前1行的accountInfo对应
