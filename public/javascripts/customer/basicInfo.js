@@ -1,8 +1,7 @@
 //get balance num
-function getBalance(index) {
+function getBalance(accountNo) {
 
     getAuthorization("token",function (status,msg) {
-        var accountNo = $('#accountNo'+index).text();
         if(true){
             $.ajax({
                 url: '/customer/basicInfo/getBalance',
@@ -12,7 +11,7 @@ function getBalance(index) {
                 },
                 dataType: 'json',
                 success: function (data) {
-                    $('#balance'+index).text(data.balance);
+                    $('#balance'+accountNo).text(data.balance);
                 },
                 error : function (data) {
 

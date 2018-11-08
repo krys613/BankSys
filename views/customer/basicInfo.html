@@ -15,7 +15,7 @@
             <div class="card-body">
                 <!--<h5 class="card-title">I类卡</h5>-->
                 <div class="cardBalanceArea">
-                    <div class="cardBalance d-flex justify-content-center align-items-center" id = "balance<%= i%>" onclick="getBalance(<%= i%>)">
+                    <div class="cardBalance d-flex justify-content-center align-items-center" id = "balance<%= accounts[i].AccountNo %>" onclick="getBalance(<%= accounts[i].AccountNo %>)">
                         余额
                     </div>
                 </div>
@@ -33,4 +33,3 @@
     <% } %>
 
 </div>
-<script src="../../public/javascripts/customer/basicInfo.js"></script>

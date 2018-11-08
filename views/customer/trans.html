@@ -22,16 +22,18 @@
     </li>
 </ul>
 
+<div id="accountArea" style="width: 30%;float: left;">
+    <h3>转账账户</h3>
 <% if(accountNo == "NULL" ){ %>
 
 <% } else {%>
-<div id="accountArea">
+
     <div class="card bg-light mb-3 accountCard" style="max-width: 18rem;">
-        <div class="card-header" id="accountNo<%= i%>"> <%= accounts[accountNo].AccountNo %></div>
+        <div class="card-header" id="fromAccountNo"> <%= accounts[accountNo].AccountNo %></div>
         <div class="card-body">
             <!--<h5 class="card-title">I类卡</h5>-->
             <div class="cardBalanceArea">
-                <div class="cardBalance d-flex justify-content-center align-items-center" id = "balance<%= %>" onclick="getBalance(<%= %>)">
+                <div class="cardBalance d-flex justify-content-center align-items-center" id = "balance<%= accounts[accountNo].AccountNo %>" onclick="getBalance(<%= accounts[accountNo].AccountNo %>)">
                     余额
                 </div>
             </div>
@@ -40,9 +42,34 @@
             </div>
         </div>
     </div>
-</div>
-<% } %>
 
+<% } %>
+</div>
+<div style="height: 100%;background: #444444;width: 1px;float: left;margin-right: 20px"></div>
+<div style="float: left;width: 150px;height: 300px;margin-right: 20px;margin-top: 100px">
+    <input type="text" class="form-control" id="transAmount" placeholder="->转账金额->">
+    <button type="submit" class="btn btn-default" style="color:blue;margin-top: 20px;margin-right: 100px" onclick="confirmTrans()">确认转账</button>
+</div>
+<div style="height: 100%;background: #444444;width: 1px;float: left;margin-right: 10px"></div>
+
+<div id="targetAccount" style="width: 40%;float: left">
+    <h3>目标账户</h3>
+
+    <form class="form-horizontal" role="form">
+
+        <div class="form-group">
+            <label for="toAccount" class=" control-label">收款人账户</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="toAccount" placeholder="请输入收款人账号">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" style="color:blue" onclick="confirmTargetAccount()">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>
 <script src="../../public/javascripts/customer/trans.js"></script>

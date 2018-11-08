@@ -62,7 +62,6 @@ router.get('/trans',function (req,res,next) {
         //todo json need less information to keep safe
 
         var json = new ObjToJson(accounts).toJson();
-        console.log(json);
         res.render('customer/trans',{
             accounts:json.data,
             accountNo: (accountNo!=null)?accountNo:"NULL"

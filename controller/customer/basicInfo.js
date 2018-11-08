@@ -21,7 +21,6 @@ router.get('/getAccounts',function (req,res,next) {
 
 router.post('/getBalance',function (req,res) {
     var accountNo = req.body.accountNo;
-    console.log(accountNo);
     pool.getConnection(
         function (err,con) {
             con.query(AccountSql.getBalance(accountNo),function (err,result) {
