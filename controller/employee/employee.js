@@ -125,12 +125,10 @@ router.post('/applyForAccount',function(req,res,next){
     });
 });*/
 
-//conding
 //转账
 router.post('/trans/commitTrans',function(req,res,next){
     //console.log(req.body);
 
-    //AccountNoFrom: '1231', AccountNoTo: '22222', Amount: '12'
     var applicant = req.body;
     var resultInfo = {
         status: false,
@@ -183,6 +181,154 @@ router.post('/withdrawal/commitWithdrawal',function(req,res,next){
 
 });
 
+/*
+//贷款
+router.post('/deposit/commitDeposit',function(req,res,next){
+    console.log(req.body);
+
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message: "Fail to add a loan record."
+    };
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+        //(name,job,company,monthSalary,loanAmount,accountNo,loanTerm,UserID,callback)
+            ManageAccount.addLoan("dasd","s","Ali","100000","10000000","123481","1","1", function(accountInfo) {
+                    callback(null, accountInfo);
+                });
+        }], function (err, accountInfo) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
+        }
+        else {
+            resultInfo.status = accountInfo.match;
+            resultInfo.message = "transfer successfully."
+        }
+        res.status(resultInfo.status?200:500).json(resultInfo);
+    });
+})*/
+/*
+//员工查询所有贷款情况
+router.post('/deposit/commitDeposit',function(req,res,next){
+    console.log(req.body);
+
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message: "Fail to list loan."
+    };
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+            ManageAccount.listAllLoan( function(accountInfo,list) {
+                callback(null, accountInfo,list);
+            });
+        }], function (err, accountInfo,list) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
+        }
+        else {
+            if(list.length>0){
+                resultInfo.status = accountInfo.match;
+                resultInfo.message = "list loan info successfully."
+                console.log(list)
+            }
+
+        }
+        res.status(resultInfo.status?200:500).json(resultInfo);
+    });
+})*/
+
+//员工查询所有贷款情况
+/*router.post('/deposit/commitDeposit',function(req,res,next){
+    console.log(req.body);
+
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message: "Fail to list loan."
+    };
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+            ManageAccount.listOneUserLoan("1", function(accountInfo,list) {
+                callback(null, accountInfo,list);
+            });
+        }], function (err, accountInfo,list) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
+        }
+        else {
+            if(accountInfo.match) {
+                resultInfo.message = "list loan info successfully."
+                resultInfo.status = true
+                if(list.length>0){
+                    console.log(list)
+                }
+            }
+        }
+        res.status(resultInfo.status?200:500).json(resultInfo);
+    });
+})*/
+
+//审批
+/*router.post('/deposit/commitDeposit',function(req,res,next){
+    console.log(req.body);
+
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message: "Fail to check loan."
+    };
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+            ManageAccount.checkloan("10","2", function(accountInfo,list) {
+                callback(null, accountInfo);
+            });
+        }], function (err, accountInfo) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
+        }
+        else {
+            if(accountInfo.match) {
+                resultInfo.message = "Check loan info successfully."
+                resultInfo.status = true
+            }
+        }
+        res.status(resultInfo.status?200:500).json(resultInfo);
+    });
+})*/
+
+//还款 TODO
+router.post('/deposit/commitDeposit',function(req,res,next){
+    console.log(req.body);
+
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message: "Fail to payment."
+    };
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+            ManageAccount.paymentLoan("10", function(accountInfo,list) {
+                callback(null, accountInfo);
+            });
+        }], function (err, accountInfo) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
+        }
+        else {
+            if(accountInfo.match) {
+                resultInfo.message = "Payment loan successfully."
+                resultInfo.status = true
+            }
+        }
+        res.status(resultInfo.status?200:500).json(resultInfo);
+    });
+})
 
 module.exports = router;
-

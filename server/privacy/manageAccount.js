@@ -3,7 +3,7 @@ import pool from '../../model/pool';
 import {AccountSql} from "../../model/sqls/account";
 import {TransactionSql} from "../../model/sqls/transaction";
 import async from "async";
-
+import {loanSql} from "../../model/sqls/loan";
 
 //check all privacy
 export class ManageAccount {
@@ -234,8 +234,6 @@ export class ManageAccount {
         })
         console.log("reduction money finished.")
     }
-
-
     static transferMoney(accountID_from,accountID_to,nameFrom,nameTo,ammount,callback){
         var resultInfo= {
             match:false
@@ -339,6 +337,252 @@ export class ManageAccount {
                 pool.releaseConnection(con);
             }
         )
+    }
+
+
+    static addLoan(name,job,company,monthSalary,loanAmount,accountNo,loanTerm,UserID,callback){
+        var resultInfo= {
+            match:false
+        };
+        async.waterfall([
+            function (callback){
+                pool.getConnection(function(err,con) {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        callback(null, con)
+                    }
+                })
+            },function (con,callback) {
+                con.query(AccountSql.getBalance(accountNo),function (err,status) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(status.length == 0){
+                            console.log("no such an account exists.")
+                            callback(1,con)
+                        }else{
+                            if(status[0]["Status"]==0){
+                                console.log("The account has been frozen!")
+                                callback(1,con)
+                            }else{
+                                console.log("The account is available.")
+                                callback(null,con)
+                            }
+                        }
+                    }
+                })
+            },function (con,callback) {
+                var LoanRate;
+                loanTerm=Number(loanTerm)
+                if(loanTerm>=1 && loanTerm<5)LoanRate=0.0435;
+                else if(loanTerm>=5 && loanTerm<10)LoanRate=0.0475;
+                else LoanRate=0.049;
+
+                var today=new Date(),
+                    h=today.getFullYear(),
+                    m=today.getMonth()+2,
+                    d=today.getDate();
+                if(m>12)h=1+h;
+                var PassDate= h+"-"+m+"-"+d;
+            //insertLoan(AccountNo,Name,Job,Company,MonthSalary,Amount,LoanRate,UserID,Status,LoanTerm,PassDate,FinishedAmount)
+                con.query(loanSql.insertLoan(accountNo,name,job,company,monthSalary,loanAmount,LoanRate,UserID,0,loanTerm,PassDate,0),function(err){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log("Add a loan record successfully.")
+                        resultInfo.match=true
+                        callback(null,con)
+                    }
+                })
+            }],function(err,con){
+            callback(resultInfo)
+            console.log("Loan money finished.")
+            pool.releaseConnection(con);
+        })
+
+    }
+
+    static listAllLoan(callback){
+        var resultInfo= {
+            match:false
+        };
+        async.waterfall([
+            function (callback){
+                pool.getConnection(function(err,con) {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        callback(null, con)
+                    }
+                })
+            },function (con,callback) {
+                //insertLoan(AccountNo,Name,Job,Company,MonthSalary,Amount,LoanRate,Status,LoanTerm,PassDate,FinishedAmount)
+                con.query(loanSql.showAllLoan(),function (err,list) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(list.length == 0){
+                            console.log("No loan record exists.")
+                            resultInfo.match = true
+                            callback(1,list,con)
+                        }else{
+                            console.log("Get all loan record info")
+                            callback(null,list,con)
+                            resultInfo.match = true
+                        }
+                    }
+                })
+            }],function(err,list,con){
+            callback(resultInfo,list)
+            console.log("Loan money finished.")
+            pool.releaseConnection(con);
+        })
+    }
+    static listOneUserLoan(UserID,callback){
+        var resultInfo= {
+            match:false
+        };
+        async.waterfall([
+            function (callback){
+                pool.getConnection(function(err,con) {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        callback(null, con)
+                    }
+                })
+            },function (con,callback) {
+                //insertLoan(AccountNo,Name,Job,Company,MonthSalary,Amount,LoanRate,Status,LoanTerm,PassDate,FinishedAmount)
+                con.query(loanSql.showSingleUser(UserID),function (err,list) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(list.length == 0){
+                            console.log("No loan record exists.")
+                        }else{
+                            console.log("Get all loan record info")
+                        }
+                        resultInfo.match = true
+                        callback(null,list,con)
+                    }
+                })
+            }],function(err,list,con){
+            callback(resultInfo,list)
+            console.log("Loan money finished.")
+            pool.releaseConnection(con);
+        })
+    }
+
+    static checkloan(LoanID,state,callback){
+        var resultInfo= {
+            match:false
+        };
+        async.waterfall([
+            function (callback){
+                pool.getConnection(function(err,con) {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        callback(null, con)
+                    }
+                })
+            },function (con,callback) {
+                con.query(loanSql.getLoanAggregate(LoanID),function (err,aggre) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(aggre.length == 0){
+                            console.log("No such an loan existed.")
+                            callback(1,con)
+                        }else{
+                            console.log("The loan exist.")
+                            callback(null,con)
+                        }
+                    }
+                })
+            },function (con,callback) {
+                con.query(loanSql.updateStatus(LoanID,state),function (err) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log("Update the loan successfully.")
+                        resultInfo.match = true
+                        callback(null,con)
+                    }
+                })
+            }],function(err,con){
+            callback(resultInfo)
+            console.log("Update loan state finished.")
+            pool.releaseConnection(con);
+        })
+    }
+
+    //TODO
+    static paymentLoan(LoanID,callback){
+        var resultInfo= {
+            match:false
+        };
+        async.waterfall([
+            function (callback){
+                pool.getConnection(function(err,con) {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        callback(null, con)
+                    }
+                })
+            },function (con,callback) {
+                con.query(loanSql.getLoanAggregate(LoanID),function (err,condition) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(condition.length == 0){
+                            console.log("No such an loan existed.")
+                            callback(1,con)
+                        }else{
+                            if(condition[0]["Status"]!=2){
+                                console.log("The loan is not available!")
+                                callback(1,con)
+                            }else{
+                                console.log("The loan exist.")
+                                callback(null,con,condition)
+                            }
+                        }
+                    }
+                })
+            },function (con,condition,callback) {
+                con.query(AccountSql.getBalance(condition[0]["AccountNo"]),function (err,balance) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        var payment = condition[0]["Amount"]/condition[0]["LoanTerm"];
+                        console.log(payment)
+                        console.log(condition[0]["Amount"])
+                        if(balance >= payment){
+                            console.log("There is enough balance.")
+                            callback(null,con,payment)
+                        }else{
+                            console.log("The balance is not enough.")
+                            callback(1,con)
+                        }
+                    }
+                })
+            },function (con,payment,callback) {
+                con.query(loanSql.updateLoan(LoanID,payment),function (err) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log("Payment the loan successfully.")
+                        resultInfo.match = true
+                        callback(null,con)
+                    }
+                })
+            }],function(err,con){
+            callback(resultInfo)
+            console.log("Payment loan finished.")
+            pool.releaseConnection(con);
+        })
     }
 }
 function today(){
