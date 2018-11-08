@@ -5,54 +5,69 @@
     <title>Title</title>
 </head>
 <body>
-<form class="form-horizontal" role="form" style="width: 400px;margin-left: 80px">
 
-    <div class="form-group">
-        <label class="col-sm-4 control-label">姓名：</label>
-        <input class="text_input" type="text" id="customerName" placeholder="请输入姓名">
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">职业：</label>
-        <input class="text_input" type="text" id="job" placeholder="请输入职业">
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">工作单位：</label>
-        <input class="text_input" type="text" id="corporation" placeholder="请输入工作单位">
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">月薪：</label>
-        <input class="text_input" type="text" id="monthlySalary" placeholder="请输入月薪">
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">贷款金额：</label>
-        <input class="text_input" type="text" id="loanAmount" placeholder="请输入贷款金额">
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">贷款账号：</label>
-        <input class="text_input" type="text" id="cardNumber" placeholder="请输入贷款账号">
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label" style="float: left">贷款期限：</label>
-        <select id="timeLimit" style="width: 266px;">
-            <option value="0">请选择贷款期限</option>
-            <option value="3">3个月</option>
-            <option value="6">6个月</option>
-            <option value="12">12个月</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">贷款利率：</label>
-        <input class="text_input" type="text" id="interestRate" disabled>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">逾期利率：</label>
-        <input class="text_input" type="text" id="overdueRate" disabled>
-    </div>
-    <div class="form-group">
-        <button type="button" id="commitBtn">提交申请</button>
-    </div>
-</form>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">申请贷款</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">贷款还款</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <form class="form-horizontal" role="form" style="width: 400px;margin-left: 20px;margin-top: 20px">
 
+            <div class="form-group">
+                <label class="col-sm-4 control-label">姓名：</label>
+                <input class="text_input" type="text" id="customerName" placeholder="请输入姓名">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">职业：</label>
+                <input class="text_input" type="text" id="job" placeholder="请输入职业">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">工作单位：</label>
+                <input class="text_input" type="text" id="corporation" placeholder="请输入工作单位">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">月薪：</label>
+                <input class="text_input" type="text" id="monthlySalary" placeholder="请输入月薪">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">贷款金额：</label>
+                <input class="text_input" type="text" id="loanAmount" placeholder="请输入贷款金额">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">贷款账号：</label>
+                <input class="text_input" type="text" id="cardNumber" placeholder="请输入贷款账号">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" style="float: left">贷款期限：</label>
+                <select id="timeLimit" style="width: 266px;">
+                    <option value="0">请选择贷款期限</option>
+                    <option value="3">3个月</option>
+                    <option value="6">6个月</option>
+                    <option value="12">12个月</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">贷款利率：</label>
+                <input class="text_input" type="text" id="interestRate" disabled>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">逾期利率：</label>
+                <input class="text_input" type="text" id="overdueRate" disabled>
+            </div>
+            <div class="form-group">
+                <button type="button" id="commitBtn">提交申请</button>
+            </div>
+        </form>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div style="margin-top: 20px;margin-left: 20px"></div>
+    </div>
+</div>
 </body>
 </html>
 <script src="../../public/javascripts/customer/loan.js"></script>

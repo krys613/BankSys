@@ -61,7 +61,6 @@ function myRedirect(type,url,data) {
         },
         error : function (data) {
             alert('身份已经过期');
-            //todo redirect
         }
     });
 }
