@@ -32,53 +32,24 @@ function selectAccount(accountNo) {
     });
 }
 
-function confirmTargetAccount() {
-    var targetAccountNo = $('#toAccount').val();
-    $.ajax({
-        url: '/customer/trans/confirmTargetAccount',
-        type: 'get',
-        data:{
-            accountNo:targetAccountNo
-        },
-        dataType: 'json',
-        success: function (data) {
-            toAccountNo = data.accountNo;
-            var cardHtml =
-                "<div id=\"accountArea\">\n" +
-                "    <div class=\"card bg-light mb-3 accountCard\" style=\"max-width: 18rem;\">\n" +
-                "        <div class=\"card-header\" id=\"toAccountNo\">" +data.accountNo+"</div>\n" +
-                "        <div class=\"card-body\">\n" +
-                "            <!--<h5 class=\"card-title\">I类卡</h5>-->\n" +
-                "            <div class=\"cardBalanceArea\">\n" +
-                "                <div class=\"cardBalance d-flex justify-content-center align-items-center\" >\n" +
-                data.name +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
-                "    </div>\n" +
-                "</div>";
-            $('#targetAccount').html(cardHtml);
-        },
-        error : function (data) {
-
-        }
-    });
-}
-
 function confirmTrans() {
+    var fromAccountName = $('#userName').text();
     var fromAccountNo = $('#fromAccountNo').text();
-    var toAccountNo = $('#toAccountNo').text();
+    var toAccountName = $('#toAccountName').val();
+    var toAccountNo = $('#toAccountNo').val();
     var transAmount = $('#transAmount').val();
-    if(fromAccountNo == ""||toAccountNo == "" ||transAmount ==""){
+    if(fromAccountNo == ""||toAccountNo == "" ||transAmount ==""||toAccountName ==""||fromAccountName==""){
         alert("wrong");
     }else {
         $.ajax({
-            url: '/customer/trans/confirmTrans',
+            url: '/employee/trans/commitTrans',
             type: 'post',
             data:{
-                fromAccountNo:fromAccountNo,
-                toAccountNo:toAccountNo,
-                transAmount:transAmount
+                nameFrom:fromAccountName,
+                AccountNoFrom:fromAccountNo,
+                nameTo:toAccountName,
+                AccountNoTo:toAccountNo,
+                Amount:transAmount
             },
             dataType: 'json',
             success: function (data) {

@@ -26,6 +26,7 @@ router.get('/confirmTargetAccount',function (req,res,next) {
 });
 
 router.post('/confirmTrans',function (req,res,next) {
+    console.log(req.body);
     //todo confirm trans
     res.json({test:"test"})
 });
