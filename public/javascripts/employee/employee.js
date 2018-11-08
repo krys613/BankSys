@@ -38,7 +38,7 @@ $('#applyForAccount').click(function(){
     var passWord = $('#caModal').find('input[name="Password"]').val();
     $.ajax({
         type:'POST',
-        url:'/employee/applyForAccount',//todo
+        url:'/employee/applyForAccount',
         data:{
             'name':customerName,
             'custID':customerID,
@@ -66,5 +66,5 @@ function today(){
 }
 
 $('#log-out').click(function(){
-    window.location.href = "http://localhost:3000/login";//todo redirect
+    window.location.href = "localhost:3000/login";//todo 重定向
 });

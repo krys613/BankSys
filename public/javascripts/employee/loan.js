@@ -9,17 +9,22 @@ var Loan = (function (){
                 "url": "/employee/loan/getAllLoan",
                 "data": function (d) {
                     d.keys = JSON.stringify($('#searchDispatchForm').serializeObject())
-                    // d.userId=loginId
                 }
 			},
-            lengthChange : true,//是否允许用户改变表格每页显示的记录数，默认是开启
-            paging : true,//是否开启本地分页，默认是开启
-            processing : true,//是否显示中文提示
-            scrollCollapse : true,  //是否开启DataTables的高度自适应，当数据条数不够分页数据条数的时候，插件高度是否随数据条数而改变
-            serverSide : false, //开启服务器模式，默认是关闭
-            scrollY : true,//设置高
-            scrollX : true,//设置宽度
-            autoWidth : true, //是否自适应宽度
+            searching: false,
+            lengthChange: false,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: true,
+            processing: true,
+            scrollY: 500,
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
             columns : [//字段
                 {
                     "sClass": "text-center",
@@ -51,7 +56,22 @@ var Loan = (function (){
                 {
                 	defaultContent: '',
                 	targets: ['_all']
-                } //所有列设置默认值为空字符串
+
+                }, //所有列设置默认值为空字符串
+                {
+                    targets: 4,
+                    render: function (data, type, row, meta) {
+                        if (data == "0") {
+                            return "待审核";
+                        }
+                        if (data == "1") {
+                            return "通过";
+                        }
+                        if (data == "2"){
+                            return "拒绝";
+                        }
+                    }
+                }
             ],
             language: {
                 "sProcessing": "处理中...",
@@ -89,6 +109,53 @@ var Loan = (function (){
             }
 		});
 	}
+
+    function auditing(){
+        var selectedRowData = loan_table.rows('.selected').data();
+        if (selectedRowData.length != 1) {
+            info = "请选择一条需要审批的数据！"
+            alert(info);
+            return;
+        }
+        else{
+            $('#Auditing').modal('show');
+            var loanCode = selectedRowData[0].loanID;
+            $('#Auditing').find('input[name="loanID"]').val(loanCode);
+        }
+        //获取贷款信息
+        // $.ajax({
+        //     url:'',
+        //     type:'POST',
+        //     data:{},
+        //     success:function (data) {             
+        //     }
+        // })
+    }
+
+    //保存审批结果
+    $("#commitAuditing").click(function(){
+        var selectedRowData = loan_table.rows('.selected').data();
+        var loanCode = selectedRowData[0].loanID;
+        var auditingStatus = parseInt($('#Auditing').find('select[name="auditingResult"]').val());
+        $.ajax({
+            type:'POST',
+            url:'',
+            data:{
+                'loanCode':loanCode,
+                'auditingStatus':auditingStatus
+            },
+            dataType:'JSON',
+            async:false,
+            success:function(res){   
+                alert(res.message);
+            },
+            error:function (err) {
+                alert(err.message);
+            }
+        });
+        $('#Auditing').modal('hide');
+    });
+    
 
     //每次加载时都先清理
 	function checkbox(tableId) {
@@ -135,6 +202,7 @@ var Loan = (function (){
 		checkbox:checkbox,
 		search:search,
 		clearSearch:clearSearch,
+        auditing:auditing,
 	}
 
 })();
