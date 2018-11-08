@@ -4,7 +4,7 @@ import mysql from 'mysql';
 var env = {
     host:'localhost',
     user:'root',
-    password:'1234',
+    password:'qaz123',
     database:'BankSys'
 };
 

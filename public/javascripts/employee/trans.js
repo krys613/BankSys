@@ -6,7 +6,7 @@ function commitTrans() {
         var amount = $('#transAmount').val();
         if(true){
             $.ajax({
-                url: '/employee/trans/commitTrans',//todo
+                url: '/employee/trans/commitTrans',
                 type: 'post',
                 data:{
                     AccountNoFrom:fromNo,

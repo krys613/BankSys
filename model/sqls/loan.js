@@ -1,7 +1,7 @@
 /*这是贷款业务的相关sql语句*/
 export class loanSql{
 	constructor(){
-		
+
 	}
 	static insertLoan(AccountNo,Name,Job,Company,MonthSalary,Amount,LoanRate,PunishmentRate,Status,LoanTerm,PassDate,FinishedAmount){
 		return "INSERT INTO loan(AccountNo,Name,Job,Company,MonthSalary,Amount,LoanRate,"+
@@ -20,8 +20,8 @@ export class loanSql{
 	static showSingleLoan(LoanID){
 		return "SELECT * FROM loan WHERE LoanID="+LoanID+";";
 	}
-	static showAllLoan(AccountNo){
-		return "SELECT * FROM loan WHERE AccountNo="+AccountNo+";";
+	static showAllLoan(){
+		return "SELECT * FROM loan ";
 	}
 }
 
@@ -31,4 +31,4 @@ console.log(loanSql.updateLoan(2,100));
 console.log(loanSql.updateStatus(2,1));
 */
 
- 
+

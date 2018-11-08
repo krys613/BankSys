@@ -23,6 +23,8 @@ router.use('/customer',require('../controller/customer/customer'));
 
 //employee
 router.use('/employee',require('../controller/employee/employee'));
+    //loan
+    router.use('/employee/loan',require('../controller/employee/loan'));
 
 
 //authorization

@@ -3,13 +3,13 @@ var Loan = (function (){
 	// var loginId=loginCookie.user.userId; // 获取登陆人ID
 
 	function Init() {
-		loan_table = $("#dispatchTable").DataTable({
+		loan_table = $("#loanTable").DataTable({
 			ajax:{
 				"type": "POST",
-                "url": " ",
+                "url": "/employee/loan/getAllLoan",
                 "data": function (d) {
-                    d.keys = JSON.stringify($('#searchDispatchForm').serializeObject()),
-                    d.userId=loginId
+                    d.keys = JSON.stringify($('#searchDispatchForm').serializeObject())
+                    // d.userId=loginId
                 }
 			},
             lengthChange : true,//是否允许用户改变表格每页显示的记录数，默认是开启
@@ -49,7 +49,7 @@ var Loan = (function (){
                     targets: 0
                 },//第一行不进行排序和搜索
                 {
-                	defaultContent: '', 
+                	defaultContent: '',
                 	targets: ['_all']
                 } //所有列设置默认值为空字符串
             ],
