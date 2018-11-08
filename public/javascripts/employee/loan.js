@@ -119,29 +119,41 @@ var Loan = (function (){
         }
         else{
             $('#Auditing').modal('show');
-            var loanCode = selectedRowData[0].loanID;
-            $('#Auditing').find('input[name="loanID"]').val(loanCode);
+            var loanID = selectedRowData[0].loanID;
+            $('#Auditing').find('input[name="loanID"]').val(loanID);
         }
         //获取贷款信息
-        // $.ajax({
-        //     url:'',
-        //     type:'POST',
-        //     data:{},
-        //     success:function (data) {             
-        //     }
-        // })
+        $.ajax({
+            url:'',
+            type:'POST',
+            data:{
+                'loanID':loanID
+            },
+            success:function (data) {  
+                data=JSON.parse(data);    
+                $('#Auditing').find('input[name="loanerName"]').val(data[0]['Name']);
+                $('#Auditing').find('input[name="loanerJob"]').val(data[0]['Job']);
+                $('#Auditing').find('input[name="loanerCompany"]').val(data[0]['Company']);
+                $('#Auditing').find('input[name="loanerIncome"]').val(data[0]['MonthSalary']);
+                $('#Auditing').find('input[name="loanerAccount"]').val(data[0]['AccountNo']);
+                $('#Auditing').find('input[name="loanerPeriod"]').val(data[0]['LoanTerm']);
+                $('#Auditing').find('input[name="loanerAmount"]').val(data[0]['Amount']);
+                $('#Auditing').find('input[name="loanerRate"]').val(data[0]['loanRate']);
+                
+            }
+        })
     }
 
     //保存审批结果
     $("#commitAuditing").click(function(){
         var selectedRowData = loan_table.rows('.selected').data();
-        var loanCode = selectedRowData[0].loanID;
+        var loanID = selectedRowData[0].loanID;
         var auditingStatus = parseInt($('#Auditing').find('select[name="auditingResult"]').val());
         $.ajax({
             type:'POST',
             url:'',
             data:{
-                'loanCode':loanCode,
+                'loanID':loanID,
                 'auditingStatus':auditingStatus
             },
             dataType:'JSON',
