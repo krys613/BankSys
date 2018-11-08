@@ -39,6 +39,7 @@ router.get('/basicInfo',function (req,res,next) {
         //todo json need less information to keep safe
 
         var json = new ObjToJson(accounts).toJson();
+        console.log(json);
         res.render('customer/basicInfo',{
             accounts:json.data});
     });
@@ -49,11 +50,24 @@ router.get('/home',function (req,res,next) {
 });
 
 router.get('/trans',function (req,res,next) {
+
     var accountNo = req.query.accountNo;
-    if(accountNo != null){
-        
-    }
-    res.render('customer/trans');
+    async.waterfall([
+        function (callback) {
+            CustomerQuery.getAllAccountInfo(req.session.user.userID,function (err,accounts) {
+                callback(null,accounts);
+            })
+        }
+    ],function (err,accounts) {
+        //todo json need less information to keep safe
+
+        var json = new ObjToJson(accounts).toJson();
+        console.log(json);
+        res.render('customer/trans',{
+            accounts:json.data,
+            accountNo: (accountNo!=null)?accountNo:"NULL"
+        });
+    });
 });
 
 router.get('/loan',function (req,res,next) {

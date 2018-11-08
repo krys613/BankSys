@@ -17,7 +17,8 @@ router.use('/test',require('../controller/test'));
 router.use('/customer',require('../controller/customer/customer'));
     //basicInfo
     router.use('/customer/basicInfo',require('../controller/customer/basicInfo'));
-
+    //trans
+    router.use('/customer/trans',require('../controller/customer/trans'));
 
 
 

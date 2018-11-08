@@ -22,32 +22,32 @@ function getBalance(index) {
     });
 }
 
-function getInfo(index) {
-    getAuthorization("token",function (status,msg) {
-        var accountNo = $('#accountNo'+index).val();
-        if(status){
-            $.ajax({
-                url: '/customer/basicInfo/getInfo',
-                type: 'get',
-                data:{
-                    accountNo:accountNo
-                },
-                dataType: 'json',
-                success: function (data) {
-                    $('#balance'+index).text(data.balance)
-                },
-                error : function (data) {
-
-                }
-            });
-        }else {
-            alert(msg);
-        }
-    });
-}
+// function getInfo(index) {
+//     getAuthorization("token",function (status,msg) {
+//         var accountNo = $('#accountNo'+index).val();
+//         if(status){
+//             $.ajax({
+//                 url: '/customer/basicInfo/getInfo',
+//                 type: 'get',
+//                 data:{
+//                     accountNo:accountNo
+//                 },
+//                 dataType: 'json',
+//                 success: function (data) {
+//                     $('#balance'+index).text(data.balance)
+//                 },
+//                 error : function (data) {
+//
+//                 }
+//             });
+//         }else {
+//             alert(msg);
+//         }
+//     });
+// }
 
 function trans(index) {
-    myRedirect('customer','trans',{accountNo:1});
+    myRedirect('customer','trans',{accountNo:index});
 }
 
 function myRedirect(type,url,data) {

@@ -8,27 +8,40 @@
 
 <ul class="nav nav-pills">
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">请选择您的账户</a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#" onclick="test()">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+            <% for(var i in accounts){ %>
+                <% if(accounts[i].Status == "1" ){ %>
+                    <a class="dropdown-item" href="#" onclick="selectAccount(<%= accounts[i].AccountNo %>)"><%= accounts[i].AccountNo%></a>
+                <% } else {%>
+                    <a class="dropdown-item disabled" href="#"><%= accounts[i].AccountNo%></a>
+                <% } %>
+
+            <% } %>
         </div>
     </li>
 </ul>
-<!--<div class="card bg-light mb-3 accountCard" style="max-width: 18rem;">-->
-    <!--<div class="card-header" id=""></div>-->
-    <!--<div class="card-body">-->
-        <!--<h5 class="card-title">I类卡</h5>-->
-        <!--<div class="cardBalanceArea">-->
-            <!--<div class="cardBalance d-flex justify-content-center align-items-center">-->
-                <!--余额-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+
+<% if(accountNo == "NULL" ){ %>
+
+<% } else {%>
+<div id="accountArea">
+    <div class="card bg-light mb-3 accountCard" style="max-width: 18rem;">
+        <div class="card-header" id="accountNo<%= i%>"> <%= accounts[accountNo].AccountNo %></div>
+        <div class="card-body">
+            <!--<h5 class="card-title">I类卡</h5>-->
+            <div class="cardBalanceArea">
+                <div class="cardBalance d-flex justify-content-center align-items-center" id = "balance<%= %>" onclick="getBalance(<%= %>)">
+                    余额
+                </div>
+            </div>
+            <div class="btn-toolbar justify-content-between cardBtnGroup" role="toolbar" aria-label="Toolbar with button groups">
+                <p style="float: left;width: 60%">创建日期：<%= accounts[i].CreatingDate%></p>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
 
 </body>
 </html>

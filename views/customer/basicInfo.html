@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../../public/stylesheets/customer/basicinfo.css">
+
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -11,19 +11,24 @@
     <% for(var i in accounts){ %>
     <div class="card bg-light mb-3 accountCard" style="max-width: 18rem;">
         <div class="card-header" id="accountNo<%= i%>"> <%= accounts[i].AccountNo %></div>
-        <div class="card-body">
-            <h5 class="card-title">I类卡</h5>
-            <div class="cardBalanceArea">
-                <div class="cardBalance d-flex justify-content-center align-items-center" id = "balance<%= i%>" onclick="getBalance(<%= i%>)">
-                    余额
+        <% if(accounts[i].Status == "1" ){ %>
+            <div class="card-body">
+                <!--<h5 class="card-title">I类卡</h5>-->
+                <div class="cardBalanceArea">
+                    <div class="cardBalance d-flex justify-content-center align-items-center" id = "balance<%= i%>" onclick="getBalance(<%= i%>)">
+                        余额
+                    </div>
+                </div>
+                <div class="btn-toolbar justify-content-between cardBtnGroup" role="toolbar" aria-label="Toolbar with button groups">
+                    <p style="float: left;width: 60%">创建日期：<%= accounts[i].CreatingDate%></p>
+                    <button type="button" style="float: left" class="btn btn-outline-secondary" onclick="trans(<%= i%>)">转账</button>
                 </div>
             </div>
-            <div class="btn-toolbar justify-content-between cardBtnGroup" role="toolbar" aria-label="Toolbar with button groups">
-                <button type="button" class="btn btn-outline-secondary" onclick="trans(<%= i%>)">转账</button>
+        <% } else {%>
 
-                <button type="button" class="btn btn-outline-secondary" onclick="getInfo(<%= i%>)">详情</button>
-            </div>
-        </div>
+            <div>你的账户已经被冻结</div>
+        <% } %>
+
     </div>
     <% } %>
 
