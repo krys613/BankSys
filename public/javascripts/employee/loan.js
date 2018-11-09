@@ -4,13 +4,13 @@ var Loan = (function (){
 
     Init();
 
-    function Init() {
-        loan_table = $("#loanTable").DataTable({
-            ajax:{
-                "type": "GET",
-                "url": "/examine/getAllLoan",
+	function Init() {
+		loan_table = $("#loanTable").DataTable({
+			ajax:{
+				"type": "POST",
+                "url": "/employee/loan/getAllLoan",
                 "data": function () {
-
+                    
                 }
             },
             searching: false,

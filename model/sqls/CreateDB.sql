@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 08/11/2018 17:33:29
+ Date: 08/11/2018 23:06:35
 */
 
 SET NAMES utf8mb4;
@@ -124,15 +124,30 @@ CREATE TABLE `loan` (
   `MonthSalary` int(11) NOT NULL,
   `Amount` int(11) NOT NULL,
   `LoanRate` double NOT NULL,
-  `PunishmentRate` double NOT NULL,
-  `Status` enum('0','1') NOT NULL DEFAULT '0' COMMENT '0代表审批中 1代表审批完成',
-  `LoanTerm` enum('12','6','3') NOT NULL COMMENT '单位：月',
+  `Status` int(1) NOT NULL DEFAULT '0' COMMENT '0代表审批中 1代表拒绝 2代表通过',
+  `LoanTerm` enum('10','5','1') NOT NULL COMMENT '单位：月',
+  `UserID` varchar(65) NOT NULL,
   `PassDate` date DEFAULT NULL,
   `FinishedAmount` double DEFAULT NULL COMMENT '已还金额',
   PRIMARY KEY (`LoanID`),
   KEY `AccountNo` (`AccountNo`),
+  KEY `loan_fk_userid` (`UserID`),
+  CONSTRAINT `loan_fk_userid` FOREIGN KEY (`UserID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `loan_ibfk_1` FOREIGN KEY (`AccountNo`) REFERENCES `account` (`AccountNo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of loan
+-- ----------------------------
+BEGIN;
+INSERT INTO `loan` VALUES (5, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
+INSERT INTO `loan` VALUES (6, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
+INSERT INTO `loan` VALUES (7, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
+INSERT INTO `loan` VALUES (8, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
+INSERT INTO `loan` VALUES (9, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
+INSERT INTO `loan` VALUES (10, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 2, '1', '1', '2018-12-08', 0);
+INSERT INTO `loan` VALUES (11, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for transaction_save
@@ -257,7 +272,8 @@ CREATE TABLE `user` (
   `password` varchar(32) NOT NULL,
   `type` enum('customer','employee') NOT NULL,
   `name` varchar(8) NOT NULL,
-  PRIMARY KEY (`userID`)
+  PRIMARY KEY (`userID`),
+  KEY `userID` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
