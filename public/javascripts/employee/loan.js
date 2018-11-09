@@ -13,10 +13,10 @@ var Loan = (function (){
                     
                 }
             },
-            searching: false,
+            searching: true,
             lengthChange: false,
             paging: true,
-            scrollCollapse: false,
+            scrollCollapse: true,
             serverSide: false,
             search: true,
             processing: true,
@@ -186,17 +186,12 @@ var Loan = (function (){
 
     //查找
     function search() {
-        var oSettings = "";
-        $("[data-column]").each(function () {
-            var filedValue = $(this).attr('data-column');
-            if (filedValue != "") {
-                console.log($('#col' + filedValue + '_filter').val());
-                oSettings = loan_table.column(filedValue).search(
-                    $('#col' + filedValue + '_filter').val()
-                );
-            }
-        });
-        loan_table.draw(oSettings);
+        var temp2 = $('#col2_filter').val();
+        oSettings2 = loan_table.columns(2).search(temp2);
+        loan_table.draw(oSettings2);
+        var temp3 = $('#col3_filter').val();
+        oSettings3 = loan_table.columns(3).search(temp3);
+        loan_table.draw(oSettings3);
     }
 
     //重置
@@ -206,7 +201,7 @@ var Loan = (function (){
             $(this).val("");
         });
 
-        loan_table.columns().search("").loan_table(loan_table);
+        loan_table.columns().search("").draw();
     }
 
     return{
