@@ -10,7 +10,7 @@ var Loan = (function (){
 				"type": "POST",
                 "url": "/employee/loan/getAllLoan",
                 "data": function () {
-                    
+
                 }
             },
             searching: true,
@@ -66,10 +66,10 @@ var Loan = (function (){
                         if (data == "0") {
                             return "待审核";
                         }
-                        if (data == "1") {
+                        if (data == "2") {
                             return "通过";
                         }
-                        if (data == "2"){
+                        if (data == "1"){
                             return "拒绝";
                         }
                     }
@@ -125,25 +125,25 @@ var Loan = (function (){
             $('#Auditing').find('input[name="loanID"]').val(loanID);
         }
         //获取贷款信息
-        // $.ajax({
-        //     url:'',
-        //     type:'POST',
-        //     data:{
-        //         'loanID':loanID
-        //     },
-        //     success:function (data) {
-        //         data=JSON.parse(data);
-        //         $('#Auditing').find('input[name="loanerName"]').val(data[0]['Name']);
-        //         $('#Auditing').find('input[name="loanerJob"]').val(data[0]['Job']);
-        //         $('#Auditing').find('input[name="loanerCompany"]').val(data[0]['Company']);
-        //         $('#Auditing').find('input[name="loanerIncome"]').val(data[0]['MonthSalary']);
-        //         $('#Auditing').find('input[name="loanerAccount"]').val(data[0]['AccountNo']);
-        //         $('#Auditing').find('input[name="loanerPeriod"]').val(data[0]['LoanTerm']);
-        //         $('#Auditing').find('input[name="loanerAmount"]').val(data[0]['Amount']);
-        //         $('#Auditing').find('input[name="loanerRate"]').val(data[0]['loanRate']);
-        //
-        //     }
-        // })
+        $.ajax({
+            url:'/employee/loan/getOneLoan',
+            type:'GET',
+            data:{
+                'loanID':loanID
+            },
+            success:function (data) {
+                console.log(data);
+                $('#Auditing').find('input[name="loanerName"]').val(data[0]['Name']);
+                $('#Auditing').find('input[name="loanerJob"]').val(data[0]['Job']);
+                $('#Auditing').find('input[name="loanerCompany"]').val(data[0]['Company']);
+                $('#Auditing').find('input[name="loanerIncome"]').val(data[0]['MonthSalary']);
+                $('#Auditing').find('input[name="loanerAccount"]').val(data[0]['AccountNo']);
+                $('#Auditing').find('input[name="loanerPeriod"]').val(data[0]['LoanTerm']);
+                $('#Auditing').find('input[name="loanerAmount"]').val(data[0]['Amount']);
+                $('#Auditing').find('input[name="loanerRate"]').val(data[0]['LoanRate']);
+
+            }
+        })
     }
 
     //保存审批结果
@@ -153,7 +153,7 @@ var Loan = (function (){
         var auditingStatus = parseInt($('#Auditing').find('select[name="auditingResult"]').val());
         $.ajax({
             type:'POST',
-            url:'',
+            url:'/employee/loan/commitAuditing',
             data:{
                 'loanID':loanID,
                 'auditingStatus':auditingStatus
@@ -161,13 +161,17 @@ var Loan = (function (){
             dataType:'JSON',
             async:false,
             success:function(res){
-                alert(res.message);
+
+
             },
             error:function (err) {
                 alert(err.message);
             }
         });
         $('#Auditing').modal('hide');
+        setTimeout(function () {
+            myRedirect('employee','loan',{});
+        },500);
     });
 
 
