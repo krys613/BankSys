@@ -91,13 +91,11 @@ router.get('/loan',function (req,res,next) {
             if(accountInfo.match) {
                 resultInfo.message = "list loan info successfully."
                 resultInfo.status = true;
-                if(list.length>0){
-                    console.log(list)
-                }
+                console.log(list)
             }
         }
         res.render('customer/loan',{
-            loans:list.data
+            loans:list
         });
     });
 
