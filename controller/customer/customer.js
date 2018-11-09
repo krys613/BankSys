@@ -3,6 +3,7 @@ import async from "async";
 import {CustomerQuery} from "../../server/data/customer";
 import {ObjToJson} from "../../server/tools/objToJson";
 import TokenManager from '../../server/privacy/tokenManager';
+import {ManageAccount} from "../../server/privacy/manageAccount";
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -70,25 +71,36 @@ router.get('/trans',function (req,res,next) {
 });
 
 router.get('/loan',function (req,res,next) {
-    var json = [
-        {
-            loanId: "1",
-            status: "0",
-            amount: 300
 
-        },{
-            loanId: "2",
-            status: "1",
-            amount: 400
-        },{
-            loanId: "3",
-            status: "2",
-            amount: 500
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message: "Fail to list loan."
+    };
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+            ManageAccount.listOneUserLoan(req.session.user.userID, function(accountInfo,list) {
+                callback(null, accountInfo,list);
+            });
+        }], function (err, accountInfo,list) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
         }
-    ];
-    res.render('customer/loan',{
-        loans:json
+        else {
+            if(accountInfo.match) {
+                resultInfo.message = "list loan info successfully."
+                resultInfo.status = true;
+                if(list.length>0){
+                    console.log(list)
+                }
+            }
+        }
+        res.render('customer/loan',{
+            loans:list.data
+        });
     });
+
 });
 
 

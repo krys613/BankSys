@@ -1,20 +1,22 @@
 var Loan = (function (){
-	var loan_table;//全局变量贷款信息表
-	// var loginId=loginCookie.user.userId; // 获取登陆人ID
+    var loan_table;//全局变量贷款信息表
+    // var loginId=loginCookie.user.userId; // 获取登陆人ID
 
-	function Init() {
-		loan_table = $("#loanTable").DataTable({
-			ajax:{
-				"type": "POST",
-                "url": "/employee/loan/getAllLoan",
-                "data": function (d) {
-                    d.keys = JSON.stringify($('#searchDispatchForm').serializeObject())
+    Init();
+
+    function Init() {
+        loan_table = $("#loanTable").DataTable({
+            ajax:{
+                "type": "GET",
+                "url": "/examine/getAllLoan",
+                "data": function () {
+
                 }
-			},
+            },
             searching: false,
             lengthChange: false,
             paging: true,
-            scrollCollapse: true,
+            scrollCollapse: false,
             serverSide: false,
             search: true,
             processing: true,
@@ -54,8 +56,8 @@ var Loan = (function (){
                     targets: 0
                 },//第一行不进行排序和搜索
                 {
-                	defaultContent: '',
-                	targets: ['_all']
+                    defaultContent: '',
+                    targets: ['_all']
 
                 }, //所有列设置默认值为空字符串
                 {
@@ -99,7 +101,7 @@ var Loan = (function (){
             },
             dom: '<"top">rt<"bottom"flip><"clear">',
             initComplete: function () {
-            	checkbox("loanTable");
+                checkbox("loanTable");
                 $("#search").click(function() {
                     search();
                 });
@@ -107,8 +109,8 @@ var Loan = (function (){
                     clearSearch("form-control");
                 });
             }
-		});
-	}
+        });
+    }
 
     function auditing(){
         var selectedRowData = loan_table.rows('.selected').data();
@@ -123,25 +125,25 @@ var Loan = (function (){
             $('#Auditing').find('input[name="loanID"]').val(loanID);
         }
         //获取贷款信息
-        $.ajax({
-            url:'',
-            type:'POST',
-            data:{
-                'loanID':loanID
-            },
-            success:function (data) {
-                data=JSON.parse(data);
-                $('#Auditing').find('input[name="loanerName"]').val(data[0]['Name']);
-                $('#Auditing').find('input[name="loanerJob"]').val(data[0]['Job']);
-                $('#Auditing').find('input[name="loanerCompany"]').val(data[0]['Company']);
-                $('#Auditing').find('input[name="loanerIncome"]').val(data[0]['MonthSalary']);
-                $('#Auditing').find('input[name="loanerAccount"]').val(data[0]['AccountNo']);
-                $('#Auditing').find('input[name="loanerPeriod"]').val(data[0]['LoanTerm']);
-                $('#Auditing').find('input[name="loanerAmount"]').val(data[0]['Amount']);
-                $('#Auditing').find('input[name="loanerRate"]').val(data[0]['loanRate']);
-
-            }
-        })
+        // $.ajax({
+        //     url:'',
+        //     type:'POST',
+        //     data:{
+        //         'loanID':loanID
+        //     },
+        //     success:function (data) {
+        //         data=JSON.parse(data);
+        //         $('#Auditing').find('input[name="loanerName"]').val(data[0]['Name']);
+        //         $('#Auditing').find('input[name="loanerJob"]').val(data[0]['Job']);
+        //         $('#Auditing').find('input[name="loanerCompany"]').val(data[0]['Company']);
+        //         $('#Auditing').find('input[name="loanerIncome"]').val(data[0]['MonthSalary']);
+        //         $('#Auditing').find('input[name="loanerAccount"]').val(data[0]['AccountNo']);
+        //         $('#Auditing').find('input[name="loanerPeriod"]').val(data[0]['LoanTerm']);
+        //         $('#Auditing').find('input[name="loanerAmount"]').val(data[0]['Amount']);
+        //         $('#Auditing').find('input[name="loanerRate"]').val(data[0]['loanRate']);
+        //
+        //     }
+        // })
     }
 
     //保存审批结果
@@ -170,7 +172,7 @@ var Loan = (function (){
 
 
     //每次加载时都先清理
-	function checkbox(tableId) {
+    function checkbox(tableId) {
         $('#' + tableId + ' tbody').off("click", "tr");
         $('#' + tableId + ' tbody').on("click", "tr", function () {
             $(this).toggleClass('selected');
@@ -190,7 +192,7 @@ var Loan = (function (){
             if (filedValue != "") {
                 console.log($('#col' + filedValue + '_filter').val());
                 oSettings = loan_table.column(filedValue).search(
-                        $('#col' + filedValue + '_filter').val()
+                    $('#col' + filedValue + '_filter').val()
                 );
             }
         });
@@ -207,14 +209,11 @@ var Loan = (function (){
         loan_table.columns().search("").loan_table(loan_table);
     }
 
-    Init();
-
-	return {
-		loan_table:loan_table,
-		checkbox:checkbox,
-		search:search,
-		clearSearch:clearSearch,
+    return{
+        checkbox:checkbox,
+        search:search,
+        clearSearch:clearSearch,
         auditing:auditing,
-	}
+    }
 
 })();

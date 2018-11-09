@@ -76,23 +76,23 @@
                 </thead>
                 <tbody>
                 <% for(var i in loans){ %>
-                    <% if(loans[i].status == "0" ){ %>
+                    <% if(loans[i].Status == "0" ){ %>
                         <tr class="table-info">
-                            <td><%= loans[i].loanId %></td>
-                            <td><%= loans[i].amount %></td>
+                            <td><%= loans[i].LoanId %></td>
+                            <td><%= loans[i].Amount %></td>
                             <td>审核中</td>
                         </tr>
 
-                    <% } else if (loans[i].status == "1") {%>
+                    <% } else if (loans[i].Status == "1") {%>
                         <tr class="table-danger" id="loan<%= loans[i].loanId %>">
-                            <td><%= loans[i].loanId %></td>
-                            <td><%= loans[i].amount %></td>
+                            <td><%= loans[i].LoanId %></td>
+                            <td><%= loans[i].Amount %></td>
                             <td>审核未通过</td>
                         </tr>
                     <% } else {%>
                         <tr class="table-warning">
-                            <td><%= loans[i].loanId %></td>
-                            <td><%= loans[i].amount %></td>
+                            <td><%= loans[i].LoanId %></td>
+                            <td><%= loans[i].Amount %></td>
                             <td>近期待还金额400<button type="button" class="btn btn-link" onclick="payLoan(<%= loans[i].loanId %>)">点击还款</button></td>
                         </tr>
                     <% } %>
