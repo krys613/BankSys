@@ -20,7 +20,7 @@ router.use('/customer',require('../controller/customer/customer'));
     //trans
     router.use('/customer/trans',require('../controller/customer/trans'));
 
-
+    router.use('/customer/loan',require('../controller/customer/loan'));
 
 //employee
 router.use('/employee',require('../controller/employee/employee'));

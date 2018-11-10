@@ -91,7 +91,6 @@ router.get('/loan',function (req,res,next) {
             if(accountInfo.match) {
                 resultInfo.message = "list loan info successfully."
                 resultInfo.status = true;
-                console.log(list)
             }
         }
         res.render('customer/loan',{

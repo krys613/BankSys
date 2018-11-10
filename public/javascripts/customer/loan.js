@@ -78,7 +78,6 @@ $(document).ready(function () {
     var cardNumber = $("#cardNumber");
     var timeLimit = $("#timeLimit");
     var interestRate = $("#interestRate");
-    var overdueRate = $("#overdueRate");
     var commitBtn = $("#commitBtn");
 
     // 检查月薪合理性
@@ -100,15 +99,14 @@ $(document).ready(function () {
     timeLimit.change(function () {
         $.ajax({
             //todo 利率
-            url: "json/loan_rate_test.json",
-            type: "post",
+            url: "customer/loan/getRate",
+            type: "get",
             data: {
-                "timeLimit": timeLimit.val(),
+                "loanTerm": timeLimit.val(),
             },
             dataType: "json",
             success: function (data) {
                 interestRate.val(data.interestRate);
-                overdueRate.val(data.overdueRate);
             },
             error: function (data) {
                 alert("服务器访问失败");
@@ -131,17 +129,16 @@ $(document).ready(function () {
         }
         $.ajax({
             //todo 申请贷款
-            url: "json/loan_apply_test.json",
+            url: "customer/loan/applyLoan",
             type: "post",
             data: {
-                "customerId": $.cookie("customerId"),
                 "customerName": customerName.val(),
                 "job": job.val(),
                 "corporation": corporation.val(),
                 "monthlySalary": monthlySalary.val(),
                 "loanAmount": loanAmount.val(),
                 "cardNumber": cardNumber.val(),
-                "timeLimit": timeLimit.val(),
+                "loanTerm": timeLimit.val(),
             },
             dataType: "json",
             success: function (data) {
@@ -160,19 +157,20 @@ $(document).ready(function () {
 });
 
 function payLoan(loanId) {
-    console.log(loanId)
     $.ajax({
         //todo 还款
-        url: "json/loan_apply_test.json",
+        url: "customer/loan/payLoan",
         type: "post",
         data: {
             loanId: loanId
         },
         dataType: "json",
         success: function (data) {
-            var loanTable = $('#loan'+loanId);
-            loanTable.removeClass("table-danger");
-            loanTable.addClass("table-secondaryr");
+            var loanLine = $("#loanLine"+loanId);
+            var loanText = $("#payLoan"+loanId);
+            loanText.html("123");
+            loanLine.removeClass("..table-warning");
+            loanLine.addClass("table-secondary");
         },
         error: function (data) {
 
