@@ -6,7 +6,7 @@ import {CheckPW} from "../../server/privacy/checkPW";
 import {ManageAccount} from "../../server/privacy/manageAccount";
 
 var router = express.Router();
-
+var LOANRATE = [4.35,4.75,4.9];
 
 //page
 
@@ -181,8 +181,8 @@ router.post('/withdrawal/commitWithdrawal',function(req,res,next){
 
 });
 
-/*
 //贷款
+/*
 router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 
@@ -193,8 +193,8 @@ router.post('/deposit/commitDeposit',function(req,res,next){
     };
     async.waterfall([
         function (callback) {//一个callback对应再往下的一个callback
-        //(name,job,company,monthSalary,loanAmount,accountNo,loanTerm,UserID,callback)
-            ManageAccount.addLoan("dasd","s","Ali","100000","10000000","123481","1","1", function(accountInfo) {
+        //(name,job,company,monthSalary,loanAmount,accountNo,loanRate,loanTerm,UserID,callback)
+            ManageAccount.addLoan("dasd","s","Ali","100000","10000000","123481",4.75,"1","1", function(accountInfo) {
                     callback(null, accountInfo);
                 });
         }], function (err, accountInfo) {//和前1行的accountInfo对应
@@ -302,7 +302,8 @@ router.post('/deposit/commitDeposit',function(req,res,next){
     });
 })*/
 
-router.post('/deposit/commitDeposit',function(req,res,next){
+//还贷款
+/*router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 
     var applicant = req.body;
@@ -328,6 +329,50 @@ router.post('/deposit/commitDeposit',function(req,res,next){
         }
         res.status(resultInfo.status?200:500).json(resultInfo);
     });
+})*/
+
+//返回利率
+/*
+
+router.post('/deposit/commitDeposit',function(req,res,next){
+    console.log(req.body);
+
+
+    //var applicant = req.body;
+    var applicant = {
+        num:6
+    }
+    var resultInfo = {
+        status: false,
+        loanRate: -1
+    };
+    if(applicant.num==3){
+        applicant.num=0
+    }else if(applicant.num==6){
+        applicant.num=1;
+    }else{
+        applicant.num=2;
+    }
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+            resultInfo.loanRate = LOANRATE[applicant.num]
+            callback(null)
+        }], function (err) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
+        }
+        else {
+            if(resultInfo.loanRate != -1) {
+                resultInfo.status = true
+                console.log("Loan rate is ",resultInfo.loanRate)
+            }
+        }
+        res.status(resultInfo.status?200:500).json(resultInfo);
+    });
 })
+*/
+
+
 
 module.exports = router;

@@ -340,7 +340,7 @@ export class ManageAccount {
     }
 
 
-    static addLoan(name,job,company,monthSalary,loanAmount,accountNo,loanTerm,UserID,callback){
+    static addLoan(name,job,company,monthSalary,loanAmount,accountNo,LoanRate,loanTerm,UserID,callback){
         var resultInfo= {
             match:false
         };
@@ -373,12 +373,6 @@ export class ManageAccount {
                     }
                 })
             },function (con,callback) {
-                var LoanRate;
-                loanTerm=Number(loanTerm)
-                if(loanTerm>=1 && loanTerm<5)LoanRate=0.0435;
-                else if(loanTerm>=5 && loanTerm<10)LoanRate=0.0475;
-                else LoanRate=0.049;
-
                 var today=new Date(),
                     h=today.getFullYear(),
                     m=today.getMonth()+2,
