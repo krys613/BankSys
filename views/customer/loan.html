@@ -56,10 +56,6 @@
                 <input class="text_input" type="text" id="interestRate" disabled>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 control-label">逾期利率：</label>
-                <input class="text_input" type="text" id="overdueRate" disabled>
-            </div>
-            <div class="form-group">
                 <button type="button" id="commitBtn">提交申请</button>
             </div>
         </form>
@@ -76,24 +72,24 @@
                 </thead>
                 <tbody>
                 <% for(var i in loans){ %>
-                    <% if(loans[i].status == "0" ){ %>
+                    <% if(loans[i].Status == "0" ){ %>
                         <tr class="table-info">
-                            <td><%= loans[i].loanId %></td>
-                            <td><%= loans[i].amount %></td>
+                            <td><%= loans[i].LoanID %></td>
+                            <td><%= loans[i].Amount %></td>
                             <td>审核中</td>
                         </tr>
 
-                    <% } else if (loans[i].status == "1") {%>
-                        <tr class="table-danger" id="loan<%= loans[i].loanId %>">
-                            <td><%= loans[i].loanId %></td>
-                            <td><%= loans[i].amount %></td>
+                    <% } else if (loans[i].Status == "1") {%>
+                        <tr class="table-danger" >
+                            <td><%= loans[i].LoanID %></td>
+                            <td><%= loans[i].Amount %></td>
                             <td>审核未通过</td>
                         </tr>
                     <% } else {%>
-                        <tr class="table-warning">
-                            <td><%= loans[i].loanId %></td>
-                            <td><%= loans[i].amount %></td>
-                            <td>近期待还金额400<button type="button" class="btn btn-link" onclick="payLoan(<%= loans[i].loanId %>)">点击还款</button></td>
+                        <tr class="table-warning" id="loanLine<%= loans[i].LoanID %>">
+                            <td><%= loans[i].LoanID %></td>
+                            <td><%= loans[i].Amount %></td>
+                            <td id="payLoan<%= loans[i].LoanID %>">近期待还金额400<button type="button"  class="btn btn-link" onclick="payLoan(<%= loans[i].LoanID %>)">点击还款</button></td>
                         </tr>
                     <% } %>
                 <% } %>

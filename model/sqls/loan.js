@@ -26,6 +26,9 @@ export class loanSql{
 	static showAllLoan(){
 		return "SELECT * FROM loan ";
 	}
+	static getOneLoan(LoanID){
+		return "SELECT * FROM loan WHERE LoanID =" + LoanID;
+	}
 }
 
 /*

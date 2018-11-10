@@ -212,6 +212,15 @@ export class ManageAccount {
             }
         })
     }
+    static getOneLoan(loanID,callback){
+        pool.getConnection(function (err,con) {
+            con.query(loanSql.getOneLoan(loanID),function (err,loanInfo) {
+                callback(loanInfo);
+                pool.releaseConnection(con);
+            });
+        });
+    }
+
     static reduceMoney(accountID,ammount,callback){
         var resultInfo= {
             match:false

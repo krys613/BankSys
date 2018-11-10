@@ -72,3 +72,18 @@ $('#log-out').click(function(){
 function examine() {
     window.location.href = "/examine";
 }
+function myRedirect(type,url,data) {
+    $.ajax({
+        url: '/'+type+'/'+url,
+        type: 'get',
+        data: data,
+        dataType: 'html',
+        success: function (data) {
+            $('#content').html(data);
+            $('#'+type+url).tab('show');
+        },
+        error : function (data) {
+            alert('身份已经过期');
+        }
+    });
+}

@@ -241,7 +241,7 @@ router.post('/deposit/commitDeposit',function(req,res,next){
     });
 })*/
 
-//员工查询所有贷款情况
+//yh查询所有贷款情况
 /*router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 

@@ -3,45 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>银行业务系统</title>
-    <!--设置网页在浏览器tab选项卡上的图标-->
-    <link rel="shortcut icon" href="../../public/images/logo.png" type="image/x-icon">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/node_modules/datatables/media/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="/node_modules/ionicons/dist/css/ionicons.min.css">
-    <link rel="stylesheet" href="/node_modules/icheck/skins/square/blue.css">
-    <link rel="stylesheet" href="/public/stylesheets/employee/employee.css">
 </head>
 <body>
     <div class="col-xs-12">
     	<div class="box search-box">
-    		<form class="search-table form-inline" id="searchLoanForm" role="form">
+            <form class="search-table form-inline" id="searchLoanForm" role="form">
     			<div class="form-group" style="width:187px;">
     				<label style="width:72px;">贷款编号</label>
-    				<input style="width:97px;" type="text" class="form-control" name="loanID" data-column="1" id="col1_filter">
+    				<input style="width:97px;" type="text" class="form-control" name="loanID" data-column="2" id="col2_filter">
     			</div>
     			<div class="form-group" style="width:187px;">
     				<label style="width:72px;">姓名</label>
-    				<input style="width:97px;" type="text" class="form-control" name="customerName" data-column="2" id="col2_filter">
+    				<input style="width:97px;" type="text" class="form-control" name="customerName" data-column="3" id="col3_filter">
     			</div>
     			<div class="form-group" style="width:187px;">
     				<label style="width:72px;">审核状态</label>
-    				<select style="width:97px;" type="text" class="form-control" name="auditingStatus" data-column="3" id="col3_filter">
+    				<select style="width:97px;" type="text" class="form-control" name="auditingStatus" data-column="4" id="col4_filter">
     					<option value="0">待审核</option>
                         <option value="1">通过</option>
           				<option value="2">拒绝</option>
     				</select>
     			</div>
-    			<div class="col-md-2.5" style="float: right; margin-right: 78px;">
-    				<button class="btn btn-primary left" style="padding-right:20px;padding-left:20px;" id="search">查询</button>
-    				<button class="btn btn-primary right search_reset" style="padding-right:20px;padding-left:20px;" id="clearSearch">重置</button>
-                    <button class="btn btn-height btn-info" onclick="Loan.auditing()" id="auditing"> 审批 </button>
-    			</div>
     		</form>
+            <hr>
+            <hr>
+            <div class="col-md-2.5">
+                    <button class="btn btn-primary left" style="padding-right:20px;padding-left:20px;" id="search">查询</button>
+                    <button class="btn btn-primary right search_reset" style="padding-right:20px;padding-left:20px;" id="clearSearch">重置</button>
+                    <button class="btn btn-height btn-info" onclick="Loan.auditing()" id="auditingbutton"> 审批 </button>
+            </div>
     	</div>
     	<hr>
     	<div class="box datatable-box">
@@ -60,7 +50,6 @@
 
     </div>
 
-<!-- 审批模态框 -->
     <div class="modal fade" id="Auditing" tabindex="-1" role="dialog">
             <div class="modal-dialog" style="width: 750px;">
                 <div class="modal-content" style="width:750px">
@@ -82,8 +71,8 @@
                                     <td>
                                         <select style="width:215px;" type="text" class="form-control" name="auditingResult" id="auditingResult" data-placeholder="待审核">
                                             <option value="0">待审核</option>
-                                            <option value="1">通过</option>
-                                            <option value="2">拒绝</option>
+                                            <option value="2">通过</option>
+                                            <option value="1">拒绝</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -110,7 +99,7 @@
                                 <tr>
                                     <td>贷款账号</td>
                                     <td>
-                                        <input type="text" name="loanAccount" readonly class="form-control">
+                                        <input type="text" name="loanerAccount" readonly class="form-control">
                                     </td>
                                     <td>贷款期限</td>
                                     <td>
@@ -120,7 +109,7 @@
                                 <tr>
                                     <td>贷款金额</td>
                                     <td>
-                                        <input type="text" name="loanAmount" readonly class="form-control">
+                                        <input type="text" name="loanerAmount" readonly class="form-control">
                                     </td>
                                     <td>贷款利率</td>
                                     <td>
@@ -140,15 +129,5 @@
 
 </body>
 </html>
-
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="/public/plugins/jQuery/jquery.cookie.js"></script>
-<script src="/public/plugins/jQuery/jquery.jdirk.js" type="text/javascript" charset="utf-8"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/node_modules/icheck/icheck.min.js"></script>
-<script src="/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
-
-<script src="/public/javascripts/employee/employee.js"></script>
-<script src="/public/javascripts/myViews/check6pw.js"></script>
 
 <script src="../../public/javascripts/employee/loan.js"></script>
