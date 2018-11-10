@@ -40,10 +40,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
+var http = require('http');
+
+
 var indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
-app.listen(8080, '127.0.0.1');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -60,5 +62,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+console.log('Server running at http://127.0.0.1:3000/');
 
 module.exports = app;
