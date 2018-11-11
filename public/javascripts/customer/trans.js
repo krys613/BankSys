@@ -19,7 +19,7 @@ function selectAccount(accountNo) {
                 "                </div>\n" +
                 "            </div>\n" +
                 "            <div class=\"btn-toolbar justify-content-between cardBtnGroup\" role=\"toolbar\" aria-label=\"Toolbar with button groups\">\n" +
-                "                <p style=\"float: left;width: 60%\">创建日期：123></p>\n" +
+                "                <p style=\"float: left;width: 60%\">创建日期：11 2018></p>\n" +
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>\n" +

@@ -165,7 +165,6 @@ var Loan = (function (){
 
             },
             error:function (err) {
-                alert(err.message);
             }
         });
         $('#Auditing').modal('hide');
