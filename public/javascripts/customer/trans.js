@@ -55,7 +55,8 @@ function confirmTrans() {
                     },
                     dataType: 'json',
                     success: function (data) {
-                        alert("ok")
+                        alert("ok");
+                        location.reload();
                     },
                     error : function (data) {
 
