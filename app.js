@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var redis   = require("redis");
+var client  = redis.createClient();
 var app = express();
 
 //////////////////////////////////////////////////////////////////////////
@@ -23,11 +24,16 @@ app.use("/node_modules",express.static(path.join(__dirname, 'node_modules')));
 require('babel-register');
 
 const session = require("express-session");
-const sessionMiddleware = session({
-    secret: 'banssystem up up', //key
-    cookie: { maxAge: 6000000 }
-});
-app.use(sessionMiddleware);
+var RedisStrore = require('connect-redis')(session);
+
+app.use(session({
+    secret: 'ssshhhhh',
+    // create new redis store.
+    store: new RedisStrore({ host: 'localhost', port: 6379, client: client,ttl :  260}),
+    saveUninitialized: false,
+    resave: false
+}));
+
 
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
