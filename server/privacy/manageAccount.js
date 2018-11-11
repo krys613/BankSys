@@ -399,9 +399,9 @@ export class ManageAccount {
                     }
                 })
             }],function(err,con){
-            callback(resultInfo)
-            console.log("Loan money finished.")
-            pool.releaseConnection(con);
+                callback(resultInfo);
+                console.log("Loan money finished.")
+                pool.releaseConnection(con);
         })
 
     }
@@ -596,8 +596,8 @@ export class ManageAccount {
                     }
                 })
             }],function(err,con){
-            callback(resultInfo)
-            console.log("Payment loan finished.")
+            callback(resultInfo);
+            console.log("Payment loan finished.");
             pool.releaseConnection(con);
         })
     }

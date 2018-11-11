@@ -6,13 +6,6 @@ import TokenManager from '../../server/privacy/tokenManager';
 import {ManageAccount} from "../../server/privacy/manageAccount";
 var router = express.Router();
 
-router.get('/getRate',function (req,res,next) {
-    var loanTerm = req.body.loanTerm;
-    var json = {
-        interestRate:123
-    }
-    //  返回利率
-});
 
 router.post('/applyLoan',function (req,res,next) {
     var query = req.body;
@@ -43,7 +36,46 @@ router.post('/applyLoan',function (req,res,next) {
 });
 
 router.post('/payLoan',function (req,res,next) {
-    res.json({});
+    var applicant = req.body;
+    var resultInfo = {
+        status: false,
+        message: "Fail to payment."
+    };
+    async.waterfall([
+        function (callback) {//一个callback对应再往下的一个callback
+            ManageAccount.paymentLoan(req.body.loanId, function(accountInfo,list) {
+                callback(null, accountInfo);
+            });
+        }], function (err, accountInfo) {//和前1行的accountInfo对应
+        if (err) {
+            console.error("Error transfer at sql return.")
+            console.error("Reveived Info from interface: ",applicant)
+        }
+        else {
+            if(accountInfo.match) {
+                resultInfo.message = "Payment loan successfully."
+                resultInfo.status = true
+            }
+        }
+        res.status(resultInfo.status?200:500).json(resultInfo);
+    });
 });
+
+router.get('/getRate',function (req,res,next) {
+    var json = {
+        interestRate:""
+    };
+    var term = req.query.loanTerm;
+    console.log(term);
+    if(term == '3'){
+        json.interestRate = "1";
+    }else if (term == '6'){
+        json.interestRate = "5";
+    }else {
+        json.interestRate = "10";
+    }
+    res.json(json);
+});
+
 
 module.exports = router;

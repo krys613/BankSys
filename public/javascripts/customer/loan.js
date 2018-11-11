@@ -169,12 +169,13 @@ function payLoan(loanId) {
             console.log(data);
             var loanLine = $("#loanLine"+loanId);
             var loanText = $("#payLoan"+loanId);
-            loanText.html("123");
+            loanText.html("已还款");
             loanLine.removeClass("table-warning");
-            loanLine.addClass("table-secondary");
         },
         error: function (data) {
-
+            console.log(data);
+            var loanText = $("#payLoan"+loanId);
+            loanText.html("付款失败，请检查账户余额");
         }
     });
 }
