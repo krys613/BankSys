@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 08/11/2018 23:06:35
+ Date: 10/11/2018 18:29:44
 */
 
 SET NAMES utf8mb4;
@@ -41,7 +41,7 @@ INSERT INTO `account` VALUES (123456, '1', '2018-10-16', '1234', 123.00, '0');
 INSERT INTO `account` VALUES (123478, '1', '2018-11-03', 'dasdad', 200.00, '1');
 INSERT INTO `account` VALUES (123479, '1', '2018-11-03', 'asdasd', 0.00, '1');
 INSERT INTO `account` VALUES (123480, '1', '2018-11-03', 'asdasd', 0.00, '0');
-INSERT INTO `account` VALUES (123481, '1', '2018-11-04', 'adadojqdo', 89739.00, '1');
+INSERT INTO `account` VALUES (123481, '1', '2018-11-04', 'adadojqdo', 89539.00, '1');
 INSERT INTO `account` VALUES (123482, '1', '2018-11-04', 'zzzzzzz', 100027.00, '1');
 INSERT INTO `account` VALUES (123483, '1', '2018-11-04', 'zzzzzzz', 33333.00, '0');
 INSERT INTO `account` VALUES (123484, '1', '2018-11-04', 'zzzzzzz', 100000.00, '1');
@@ -145,7 +145,7 @@ INSERT INTO `loan` VALUES (6, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.04
 INSERT INTO `loan` VALUES (7, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
 INSERT INTO `loan` VALUES (8, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
 INSERT INTO `loan` VALUES (9, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
-INSERT INTO `loan` VALUES (10, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 2, '1', '1', '2018-12-08', 0);
+INSERT INTO `loan` VALUES (10, 123481, 'dasd', 's', 'Ali', 100000, 1000, 0.0435, 2, '5', '1', '2018-12-08', 600);
 INSERT INTO `loan` VALUES (11, 123481, 'dasd', 's', 'Ali', 100000, 10000000, 0.0435, 0, '1', '1', '2018-12-08', 0);
 COMMIT;
 
