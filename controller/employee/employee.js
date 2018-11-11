@@ -83,6 +83,7 @@ router.post('/applyForAccount',function(req,res,next){
         res.json(json);
     });
 });
+
 //存款
 router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
@@ -261,9 +262,9 @@ router.post('/deposit/commitDeposit',function(req,res,next){
         res.status(resultInfo.status?200:500).json(resultInfo);
     });
 })*/
-
+/*
 //审批
-/*router.post('/deposit/commitDeposit',function(req,res,next){
+router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 
     var applicant = req.body;
