@@ -9,7 +9,13 @@ export class ObjToJson {
         for(var i in this.obj){
             var subJson = {};
             for (var key in this.obj[i]) {
-                subJson[""+key] = this.obj[i][key];
+                if(key === "CreatingDate") {
+                    subJson[""+key] = String(this.obj[i][key]).slice(10,18);
+
+                }else {
+                    subJson[""+key] = this.obj[i][key];
+
+                }
             }
             jsonArr.push(subJson);
         }

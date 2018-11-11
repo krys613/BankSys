@@ -166,10 +166,11 @@ function payLoan(loanId) {
         },
         dataType: "json",
         success: function (data) {
+            console.log(data);
             var loanLine = $("#loanLine"+loanId);
             var loanText = $("#payLoan"+loanId);
             loanText.html("123");
-            loanLine.removeClass("..table-warning");
+            loanLine.removeClass("table-warning");
             loanLine.addClass("table-secondary");
         },
         error: function (data) {

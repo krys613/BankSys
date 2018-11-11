@@ -15,9 +15,14 @@
     <link rel="stylesheet" href="/public/stylesheets/customer/basicinfo.css">
 </head>
 <body>
-<div class="top">
-    这是客户 <span id="userName"><%= name %> </span>     的页面
-</div>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">欢迎 <%= name %></a>
+        </div>
+
+    </div>
+</nav>
 <div class="row">
     <div class="col-md-3 ">
         <ul class="nav flex-column nav-pills leftNav" id="leftNav">
@@ -25,7 +30,7 @@
                 <a class="nav-link active" href="#" id="customerhome" onclick="show('/home')">首页</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" id="customerbasicInfo" onclick="show('/basicInfo')">基本信息</a>
+                <a class="nav-link" href="#" id="customerbasicInfo" onclick="show('/basicInfo')">账户</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" id="customertrans" onclick="show('/trans')">转账</a>
@@ -37,7 +42,7 @@
     </div>
     <div class="col-md-9">
         <div id="content">
-            ceshi
+            欢迎使用银行系统
         </div>
     </div>
 </div>

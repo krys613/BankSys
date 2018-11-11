@@ -37,8 +37,6 @@ router.get('/basicInfo',function (req,res,next) {
             })
         }
     ],function (err,accounts) {
-        //todo json need less information to keep safe
-
         var json = new ObjToJson(accounts).toJson();
         console.log(json);
         res.render('customer/basicInfo',{

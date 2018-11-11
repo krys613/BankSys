@@ -1,13 +1,5 @@
 
 <div>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">暂时</a></li>
-            <li class="breadcrumb-item"><a href="#">先</a></li>
-            <li class="breadcrumb-item active" aria-current="page">留着</li>
-        </ol>
-    </nav>
-
     <% for(var i in accounts){ %>
     <div class="card bg-light mb-3 accountCard" style="max-width: 18rem;">
         <div class="card-header" id="accountNo<%= i%>"> <%= accounts[i].AccountNo %></div>
@@ -26,7 +18,7 @@
             </div>
         <% } else {%>
 
-            <div>你的账户已经被冻结</div>
+            <div style="text-align: center">你的账户已经被冻结</div>
         <% } %>
 
     </div>

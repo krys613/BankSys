@@ -16,7 +16,6 @@ router.get('/',function (req,res,next) {
 });
 
 router.get('/getAllLoan',function (req,res,next) {
-    console.log("---------------------");
     EmployeeQuery.getLoanList(function (err,result) {
 
         var json = new ObjToJson(result).toJsonRenameWith(["LoanID","Name","Status"],
