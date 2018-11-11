@@ -138,6 +138,7 @@ $(document).ready(function () {
                 "monthlySalary": monthlySalary.val(),
                 "loanAmount": loanAmount.val(),
                 "cardNumber": cardNumber.val(),
+                "loanRate":interestRate.val(),
                 "loanTerm": timeLimit.val(),
             },
             dataType: "json",

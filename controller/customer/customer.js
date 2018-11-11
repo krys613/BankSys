@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
     //todo for test, replace this code when release!!
     var testUser = {
         userID:"1",
-        name:"测试客户",
+        name:"dsad",
         type:"employee"
     };
     req.session.user = testUser;
@@ -49,7 +49,6 @@ router.get('/home',function (req,res,next) {
 });
 
 router.get('/trans',function (req,res,next) {
-
     var accountNo = req.query.accountNo;
     async.waterfall([
         function (callback) {
@@ -59,7 +58,6 @@ router.get('/trans',function (req,res,next) {
         }
     ],function (err,accounts) {
         //todo json need less information to keep safe
-
         var json = new ObjToJson(accounts).toJson();
         res.render('customer/trans',{
             accounts:json.data,

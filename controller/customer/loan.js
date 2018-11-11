@@ -10,22 +10,26 @@ var router = express.Router();
 router.post('/applyLoan',function (req,res,next) {
     var query = req.body;
 
-    var applicant = req.body;
+    console.log(query)
     var resultInfo = {
         status: false,
         message: "Fail to add a loan record."
     };
+    var temp = Number(query.loanTerm);
+    if(temp<5)query.loanTerm="1";
+    else if(temp<8)query.loanTerm="5";
+    else query.loanTerm="10";
     async.waterfall([
         function (callback) {//一个callback对应再往下的一个callback
-            //(name,job,company,monthSalary,loanAmount,accountNo,loanTerm,UserID,callback)
+            //addLoan(name,job,company,monthSalary,loanAmount,accountNo,LoanRate,loanTerm,UserID,callback)
             ManageAccount.addLoan(query.customerName,query.job,query.corporation,
-                query.monthlySalary,query.loanAmount,query.cardNumber,query.loanTerm ,req.session.user.userIDr, function(accountInfo) {
+                query.monthlySalary,query.loanAmount,query.cardNumber,query.loanRate,query.loanTerm ,req.session.user.userID, function(accountInfo) {
                 callback(null, accountInfo);
             });
         }], function (err, accountInfo) {//和前1行的accountInfo对应
         if (err) {
             console.error("Error transfer at sql return.")
-            console.error("Reveived Info from interface: ",applicant)
+            console.error("Reveived Info from interface: ",query)
         }
         else {
             resultInfo.status = accountInfo.match;
@@ -68,11 +72,11 @@ router.get('/getRate',function (req,res,next) {
     var term = req.query.loanTerm;
     console.log(term);
     if(term == '3'){
-        json.interestRate = "1";
+        json.interestRate = "4.35";
     }else if (term == '6'){
-        json.interestRate = "5";
+        json.interestRate = "4.75";
     }else {
-        json.interestRate = "10";
+        json.interestRate = "4.90";
     }
     res.json(json);
 });

@@ -127,7 +127,7 @@ router.post('/applyForAccount',function(req,res,next){
 
 //转账
 router.post('/trans/commitTrans',function(req,res,next){
-    //console.log(req.body);
+    console.log(req.body);
 
     var applicant = req.body;
     var resultInfo = {

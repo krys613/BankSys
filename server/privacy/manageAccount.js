@@ -265,6 +265,7 @@ export class ManageAccount {
                             console.error("There is no such a user of sending!")
                             callback(1,con)
                         }else{
+                            console.log(user_id)
                             console.log(("Get userID_from successfully."))
                             callback(null,con,user_id[0]["userID"])
                         }
@@ -298,6 +299,7 @@ export class ManageAccount {
                             console.error("There is no such a user of receiving!")
                             callback(1,con)
                         }else{
+                            console.log(user_id)
                             console.log(("Get userID_to successfully."))
                             callback(null,con,user_id[0]["userID"])
                         }
@@ -389,7 +391,7 @@ export class ManageAccount {
                 if(m>12)h=1+h;
                 var PassDate= h+"-"+m+"-"+d;
             //insertLoan(AccountNo,Name,Job,Company,MonthSalary,Amount,LoanRate,UserID,Status,LoanTerm,PassDate,FinishedAmount)
-                con.query(loanSql.insertLoan(accountNo,name,job,company,monthSalary,loanAmount,LoanRate,UserID,0,loanTerm,PassDate,0),function(err){
+                con.query(loanSql.insertLoan(accountNo,name,job,company,monthSalary,loanAmount,Number(LoanRate),UserID,0,loanTerm,PassDate,0),function(err){
                     if(err){
                         console.log(err);
                     }else{
