@@ -68,6 +68,7 @@
                     <th scope="col">贷款编号</th>
                     <th scope="col">金额</th>
                     <th scope="col">状态</th>
+                    <th scope="col">已还金额</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -77,6 +78,7 @@
                             <td><%= loans[i].LoanID %></td>
                             <td><%= loans[i].Amount %></td>
                             <td>审核中</td>
+                            <td></td>
                         </tr>
 
                     <% } else if (loans[i].Status == "1") {%>
@@ -84,12 +86,14 @@
                             <td><%= loans[i].LoanID %></td>
                             <td><%= loans[i].Amount %></td>
                             <td>审核未通过</td>
+                            <td></td>
                         </tr>
                     <% } else {%>
                         <tr class="table-warning" id="loanLine<%= loans[i].LoanID %>">
                             <td><%= loans[i].LoanID %></td>
                             <td><%= loans[i].Amount %></td>
-                            <td id="payLoan<%= loans[i].LoanID %>">近期待还金额400<button type="button"  class="btn btn-link" onclick="payLoan(<%= loans[i].LoanID %>)">点击还款</button></td>
+                            <td id="payLoan<%= loans[i].LoanID %>"><button type="button"  class="btn btn-link" onclick="payLoan(<%= loans[i].LoanID %>)">点击还款</button></td>
+                            <td><%= loans[i].FinishedAmount %></td>
                         </tr>
                     <% } %>
                 <% } %>

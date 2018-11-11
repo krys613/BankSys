@@ -564,7 +564,7 @@ export class ManageAccount {
                             console.log("The account is not available.")
                             callback(1,con)
                         }else {
-                            var payment = condition[0]["Amount"]/condition[0]["LoanTerm"];
+                            var payment = condition[0]["Amount"]/Number(condition[0]["LoanTerm"]);
                             console.log(payment)
                             console.log(condition[0]["Amount"])
                             if(balance[0]["Amount"] >= payment){

@@ -22,3 +22,15 @@ function show(url) {
 }
 
 
+function loginout() {
+    $.ajax({
+        url: '/customer/loginout',
+        type: 'post',
+        dataType: 'html',
+        success: function (data) {
+            window.location.href="http://localhost:3000";
+        },
+        error : function (data) {
+        }
+    });
+}

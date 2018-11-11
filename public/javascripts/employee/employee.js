@@ -87,3 +87,16 @@ function myRedirect(type,url,data) {
         }
     });
 }
+
+function loginout() {
+    $.ajax({
+        url: '/customer/loginout',
+        type: 'post',
+        dataType: 'html',
+        success: function (data) {
+            window.location.href="http://119.29.111.104";
+        },
+        error : function (data) {
+        }
+    });
+}

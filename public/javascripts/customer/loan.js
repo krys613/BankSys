@@ -172,6 +172,7 @@ function payLoan(loanId) {
             var loanText = $("#payLoan"+loanId);
             loanText.html("已还款");
             loanLine.removeClass("table-warning");
+
         },
         error: function (data) {
             console.log(data);

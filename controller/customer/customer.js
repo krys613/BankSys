@@ -79,11 +79,17 @@ router.get('/loan',function (req,res,next) {
                 resultInfo.status = true;
             }
         }
+        console.log(list);
         res.render('customer/loan',{
             loans:list
         });
     });
 
+});
+
+router.post('/loginout',function (req,res,next) {
+    req.session.user = null;
+    res.render('user/login');
 });
 
 
