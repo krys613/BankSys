@@ -7,24 +7,14 @@ import {ManageAccount} from "../../server/privacy/manageAccount";
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-    // if (req.session.user.name != null && req.session.user.type === "customer"){
-    //     //todo tougher check
-    //     return  res.render('customer/customer',{
-    //         name:req.session.user.name
-    //     });
-    // }else {
-    //     return  res.send("no user");
-    // }
-    //todo for test, replace this code when release!!
-    var testUser = {
-        userID:"1",
-        name:"dsad",
-        type:"employee"
-    };
-    req.session.user = testUser;
-    return  res.render('customer/customer',{
-        name:req.session.user.name
-    });
+    if (req.session.user.name != null && req.session.user.type === "customer"){
+        //todo tougher check
+        return  res.render('customer/customer',{
+            name:req.session.user.name
+        });
+    }else {
+        return  res.send("no user");
+    }
 });
 
 router.get('/basicInfo',function (req,res,next) {
