@@ -1,7 +1,7 @@
 import redis from 'redis';
 import async from 'async';
 
-var client = redis.createClient();
+var client = redis.createClient({password:'qaz123!@#'});
 var expire = 120;
 var wrongTimeExpire = 86400;
 class TokenManager {

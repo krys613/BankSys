@@ -4,7 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var redis   = require("redis");
-var client  = redis.createClient();
+var client  = redis.createClient({
+    password:'qaz123!@#'
+});
 var app = express();
 
 //////////////////////////////////////////////////////////////////////////
@@ -29,7 +31,7 @@ var RedisStrore = require('connect-redis')(session);
 app.use(session({
     secret: 'ssshhhhh',
     // create new redis store.
-    store: new RedisStrore({ host: 'localhost', port: 6379, client: client,ttl :  260}),
+    store: new RedisStrore({ client: client,ttl :  260,pass: 'qaz123!@#'}),
     saveUninitialized: false,
     resave: false
 }));
