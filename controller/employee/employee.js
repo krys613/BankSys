@@ -83,9 +83,8 @@ router.post('/applyForAccount',function(req,res,next){
         res.json(json);
     });
 });
-
 //存款
-/*router.post('/deposit/commitDeposit',function(req,res,next){
+router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 
     var applicant = req.body;
@@ -113,7 +112,7 @@ router.post('/applyForAccount',function(req,res,next){
         }
         res.status(resultInfo.status?200:500).json(resultInfo);
     });
-});*/
+});
 
 //转账
 router.post('/trans/commitTrans',function(req,res,next){
@@ -231,7 +230,7 @@ router.post('/deposit/commitDeposit',function(req,res,next){
     });
 })*/
 
-//yh查询所有贷款情况
+//查询所有贷款情况
 /*router.post('/deposit/commitDeposit',function(req,res,next){
     console.log(req.body);
 

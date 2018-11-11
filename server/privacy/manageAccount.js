@@ -502,17 +502,28 @@ export class ManageAccount {
                             callback(1,con)
                         }else{
                             console.log("The loan exist.")
-                            callback(null,con)
+                            callback(null,con,aggre[0]["AccountNo"])
                         }
                     }
                 })
-            },function (con,callback) {
+            },function (con,accountNo,callback) {
                 con.query(loanSql.updateStatus(LoanID,status),function (err) {
                     if(err){
                         console.log(err);
                     }else{
+                        console.log(accountNo)
                         console.log("Update the loan successfully.")
                         resultInfo.match = true
+                        console.log(loanInfo)
+                        callback(null,con,accountNo)
+                    }
+                })
+            },function (con,accountNo,callback) {
+                con.query(AccountSql.updateAccountAmount(Number(accountNo),Number(ammount)),function(err,result) {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        console.log("changing money successfully!")
                         callback(null,con)
                     }
                 })
