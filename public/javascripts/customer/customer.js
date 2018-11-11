@@ -28,7 +28,7 @@ function loginout() {
         type: 'post',
         dataType: 'html',
         success: function (data) {
-            window.location.href="http://localhost:3000";
+            window.location.href="http://119.29.111.104";
         },
         error : function (data) {
         }
