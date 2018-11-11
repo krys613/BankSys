@@ -10,7 +10,7 @@ export class ObjToJson {
             var subJson = {};
             for (var key in this.obj[i]) {
                 if(key === "CreatingDate") {
-                    subJson[""+key] = String(this.obj[i][key]).slice(10,18);
+                    subJson[""+key] = String(this.obj[i][key]).slice(7,15);
 
                 }else {
                     subJson[""+key] = this.obj[i][key];

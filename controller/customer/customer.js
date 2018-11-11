@@ -22,6 +22,7 @@ router.get('/basicInfo',function (req,res,next) {
     //res.sendFile(appRoot+'/views/customer/basicInfo.html');
     async.waterfall([
         function (callback) {
+        console.log(req.session.user.userID)
             CustomerQuery.getAllAccountInfo(req.session.user.userID,function (err,accounts) {
                 callback(null,accounts);
             })
