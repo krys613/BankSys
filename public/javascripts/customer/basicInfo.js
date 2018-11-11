@@ -2,7 +2,7 @@
 function getBalance(accountNo) {
 
     getAuthorization("token",function (status,msg) {
-        if(true){
+        if(status){
             $.ajax({
                 url: '/customer/basicInfo/getBalance',
                 type: 'post',

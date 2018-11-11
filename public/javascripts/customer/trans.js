@@ -41,23 +41,28 @@ function confirmTrans() {
     if(fromAccountNo == ""||toAccountNo == "" ||transAmount ==""||toAccountName ==""||fromAccountName==""){
         alert("wrong");
     }else {
-        $.ajax({
-            url: '/employee/trans/commitTrans',
-            type: 'post',
-            data:{
-                nameFrom:fromAccountName,
-                AccountNoFrom:fromAccountNo,
-                nameTo:toAccountName,
-                AccountNoTo:toAccountNo,
-                Amount:transAmount
-            },
-            dataType: 'json',
-            success: function (data) {
-                alert("ok")
-            },
-            error : function (data) {
+        getAuthorization('onetime',function (status,msg) {
+            if(status){
+                $.ajax({
+                    url: '/employee/trans/commitTrans',
+                    type: 'post',
+                    data:{
+                        nameFrom:fromAccountName,
+                        AccountNoFrom:fromAccountNo,
+                        nameTo:toAccountName,
+                        AccountNoTo:toAccountNo,
+                        Amount:transAmount
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        alert("ok")
+                    },
+                    error : function (data) {
 
+                    }
+                });
             }
         });
+
     }
 }

@@ -3,7 +3,7 @@ function commitWithdrawal() {
     getAuthorization("token",function (status,msg) {
         var AccountNo = $('#customerAccount').val();
         var Amount = $('#withdrawalAccount').val();
-        if(true){
+        if(status){
             $.ajax({
                 url: '/employee/withdrawal/commitWithdrawal',//todo
                 type: 'post',

@@ -127,57 +127,68 @@ $(document).ready(function () {
             timeLimit.focus();
             return;
         }
-        $.ajax({
-            //todo 申请贷款
-            url: "customer/loan/applyLoan",
-            type: "post",
-            data: {
-                "customerName": customerName.val(),
-                "job": job.val(),
-                "corporation": corporation.val(),
-                "monthlySalary": monthlySalary.val(),
-                "loanAmount": loanAmount.val(),
-                "cardNumber": cardNumber.val(),
-                "loanRate":interestRate.val(),
-                "loanTerm": timeLimit.val(),
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.status) {
-                    alert("申请已提交，请等待审核");
-                    location.reload();
-                } else {
-                    alert(data.error);
-                }
-            },
-            error: function (data) {
-                alert("服务器访问失败");
+
+
+
+        getAuthorization("onetime",function (status,msg) {
+            if (status) {
+                $.ajax({
+                    //todo 申请贷款
+                    url: "customer/loan/applyLoan",
+                    type: "post",
+                    data: {
+                        "customerName": customerName.val(),
+                        "job": job.val(),
+                        "corporation": corporation.val(),
+                        "monthlySalary": monthlySalary.val(),
+                        "loanAmount": loanAmount.val(),
+                        "cardNumber": cardNumber.val(),
+                        "loanRate": interestRate.val(),
+                        "loanTerm": timeLimit.val(),
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status) {
+                            alert("申请已提交，请等待审核");
+                            location.reload();
+                        } else {
+                            alert(data.error);
+                        }
+                    },
+                    error: function (data) {
+                        alert("服务器访问失败");
+                    }
+                });
             }
         });
+
     });
 });
 
 function payLoan(loanId) {
-    $.ajax({
-        //todo 还款
-        url: "customer/loan/payLoan",
-        type: "post",
-        data: {
-            loanId: loanId
-        },
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-            var loanLine = $("#loanLine"+loanId);
-            var loanText = $("#payLoan"+loanId);
-            loanText.html("已还款");
-            loanLine.removeClass("table-warning");
+    getAuthorization("onetime",function (status,msg) {
+        $.ajax({
+            //todo 还款
+            url: "customer/loan/payLoan",
+            type: "post",
+            data: {
+                loanId: loanId
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var loanLine = $("#loanLine"+loanId);
+                var loanText = $("#payLoan"+loanId);
+                loanText.html("已还款");
+                loanLine.removeClass("table-warning");
 
-        },
-        error: function (data) {
-            console.log(data);
-            var loanText = $("#payLoan"+loanId);
-            loanText.html("付款失败，请检查账户余额");
-        }
+            },
+            error: function (data) {
+                console.log(data);
+                var loanText = $("#payLoan"+loanId);
+                loanText.html("付款失败，请检查账户余额");
+            }
+        });
     });
+
 }

@@ -135,7 +135,9 @@ function check6pwReq(pw,type,callback) {
             check6pwResult.html(msg.success?'success':"fail");
             setTimeout(function () {
 
-                check6pwModal.modal('hide');
+                if(msg.success){
+                    check6pwModal.modal('hide');
+                }
                 callback(msg.success,msg.err);
 
             },500);
